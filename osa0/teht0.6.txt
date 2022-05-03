@@ -1,0 +1,19 @@
+note over selain:
+käyttäjä kirjoittaa tekstikenttään
+muistiinpanon ja painaa Save-nappia
+end note
+
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+
+note over selain:
+selain lähettää palvelimelle POST-pyynnön,
+joka sisältää muistiinpanon sisällön
+ja lähetyspäivämäärän JSON-muodossa
+end note
+
+palvelin-->selain: HTTP 201
+
+note over palvelin:
+palvelin vastaa selaimelle, että
+pyyntö on käsitelty ja muistiinpano luotu.
+end note
