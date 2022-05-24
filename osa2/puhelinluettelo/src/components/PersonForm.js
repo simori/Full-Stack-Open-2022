@@ -3,10 +3,10 @@ const PersonForm = (props) => {
     return (
       <form onSubmit={props.addEntry}>
         <div>
-          name: <input value={props.newName} onChange={props.nameHandler} />
+          name: <input type="text" onChange={props.nameHandler} />
         </div>
         <div>
-          number: <input value={props.newNumber} onChange={props.numberHandler} />
+          number: <input type="text" onChange={props.numberHandler} />
         </div>
         <div>
           <button type="submit">add</button>

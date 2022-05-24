@@ -1,6 +1,8 @@
-const Entry = ({entry}) => {
+const Entry = ({entry, deleteFunc}) => {
     return (
-      <p>{entry.name} {entry.number}</p>
+      <li>
+      {entry.name} {entry.number} <button onClick={() => deleteFunc(entry.id)}> delete me </button>
+      </li>
     )
 }
 
