@@ -2,17 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-// maan näyttämispainikkeen händleri
-const buttonClickHandler = (e) => {
-  console.log("clicked!" + e.target.value)
-
-  return (
-    <div>
-      <CountryList entries={e.target.value} />
-    </div>
-  )
-
-}
+const api_key = process.env.REACT_APP_API_KEY
 
 // hakupalkki
 const Searcher = ({ handler }) => {
@@ -21,12 +11,11 @@ const Searcher = ({ handler }) => {
   )
 }
 
-
 // maiden listaus
 // jos hakuehdon täyttäviä maita yli 10, käske tarkentamaan
 // jos [1...10] listaa maiden nimet
-const CountryList = ({ entries }) => {
-  if (entries.length === 0) return (
+const CountryList = ({ entries, handler }) => {
+  if (entries.length == 0) return (
     <p>No results!</p>
   )
   else if (entries.length > 10) return (
@@ -35,25 +24,24 @@ const CountryList = ({ entries }) => {
   // 2-10 maata, näytä kyseisten maiden nimet
   else if (entries.length > 1 && entries.length <= 10) return (
     <div>
-      {entries.map((e, index) =>
-        <CountryName key={index} country={e} buttonClick={buttonClickHandler} />
+      {entries.map(e =>
+        <CountryName key={e.name.official} country={e} buttonClick={handler} />
       )}
     </div>
   )
   // yksi maa, näytä sen tiedot
   return (
     <div>
-      {entries.map((e, index) =>
-        <Country key={index} country={e} />
+      {entries.map(e =>
+        <Country key={e.name.official} country={e} />
       )}
     </div>
   )
 }
 
-// <Country country={country}/>
+// komponentti joka renderöi maan nimen ja sen tiedot näyttävän painikkeen
 const CountryName = ({ country, buttonClick }) => {
   const cname = country.name.common
-  console.log(cname);
   return (
     <div>
       <p>{cname}
@@ -63,9 +51,22 @@ const CountryName = ({ country, buttonClick }) => {
   )
 }
 
-// näytä maan nimi, area, pääkaupunki, puhutut kielet, lippu
+// näytä maan nimi, pinta-ala, pääkaupunki, puhutut kielet, lippu
+// 2.14: pääkaupungin säätiedotus: lämpötila, sääikoni, tuuli
 const Country = ({ country }) => {
-  //const langList = 
+  const [temp, setTemp] = useState('')
+  const [wind, setWind] = useState('')
+  const [img, setImg] = useState('')
+
+  // haetaan maan pääkaupungin säätiedot openweathermapista axioksen avulla
+  axios
+    .get(`https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&appid=${api_key}`)
+    .then(response => {
+      setTemp((response.data.main.temp - 273.15).toFixed(2));
+      setWind(response.data.wind.speed);
+      setImg("http://openweathermap.org/img/wn/" + response.data.weather[0].icon + "@2x.png");
+    })
+
   return (
     <div>
       <h1>{country.name.common}</h1>
@@ -75,9 +76,9 @@ const Country = ({ country }) => {
       <h2>spoken languages</h2>
       <p>{Object.values(country.languages) + " "}</p>
       <h2>Weather in {country.capital}</h2>
-      <p>temperature -666 celsius</p>
-      <p>weatherImage goes here</p>
-      <p>wind over 9000 m/s</p>
+      <p>temperature {temp} celsius</p>
+      <p><img src={img} alt="sää" /></p>
+      <p>wind {wind} m/s</p>
     </div>
   )
 }
@@ -88,11 +89,10 @@ const App = () => {
   const [countries, setCountries] = useState([])
 
   useEffect(() => {
-    //console.log('effect')
+    // console.log("apikey on",api_key)
     axios
       .get('https://restcountries.com/v3.1/all')
       .then(response => {
-        //console.log('promise fulfilled')
         setCountries(response.data)
       })
   }, [])
@@ -102,20 +102,37 @@ const App = () => {
     setSearchTerm(event.target.value)
   }
 
+  // maan näyttämispainikkeen händleri
+  // tarvii refreshin että voi käyttää uudelleen hakua (bug)
+  const buttonClickHandler = (e) => {
+    setCountries(
+      [countries.find(
+        c => c.name.common === e.target.value
+      )]
+    )
+    console.log("searchterm", searchTerm.length);
+    if (searchTerm.length == 0) {
+      axios
+      .get('https://restcountries.com/v3.1/all')
+      .then(response => {
+        setCountries(response.data)
+      })
+    }
+  }
 
   // näytettävät maat
   const entriesToShow = countries.filter(
-    c => c.name.common.toLowerCase().includes(searchTerm)
+    c => c.name.common.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-  //console.log('render', countries.length, 'countrys')
   return (
     <div>
       <Searcher handler={searchHandler} />
       <br />
-      <CountryList entries={entriesToShow} />
+      <CountryList entries={entriesToShow} handler={buttonClickHandler} />
     </div>
   )
 }
 
 export default App
+
