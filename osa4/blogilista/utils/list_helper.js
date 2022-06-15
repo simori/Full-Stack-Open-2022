@@ -1,6 +1,41 @@
+const Blog = require('../models/blog')
+
 const dummy = (blogs) => {
   // dummytesti, pitää palauttaa 1
   return 1
+}
+
+// id: '62a6f908f5758a40f6d67c5a'
+const initialBlogs = [
+  {
+    title: 'Babbyn eka blogi ikinä!',
+    author: 'Miro Sihimäki',
+    url: 'http://127.0.0.1/babbynekablogi',
+    likes: 9001
+  },
+  {
+    title: 'Limoncelloni Mun',
+    author: 'Simo Riihimäki',
+    url: 'http://127.9000.1337.-42/karhunimunbloki',
+    likes: 0
+  },
+  {
+    title: 'Testiblokki',
+    author: 'Tommi Testaaja',
+    url: 'http://987-654-321-0',
+    likes: 0
+  },
+  {
+    title: 'TNeljäs Kerta Toden Sanoi',
+    author: 'Jaakko Jokula',
+    url: 'http://sieni.us',
+    likes: 420
+  }
+]
+
+const blogsInDatabase = async () => {
+  const blogs = await Blog.find({})
+  return blogs.map(b => b.toJSON())
 }
 
 /*
@@ -22,11 +57,15 @@ tehtävä 4.5
   suosikkia, palauttaa niistä yhden.
 */
 const favoriteBlog = (blogs) => {
-  console.log(Math.max(...blogs.map(blog => blog.likes)))
+  // console.log(Math.max(...blogs.map(blog => blog.likes)))
   const favorite = blogs.find(
     blog => blog.likes === Math.max(...blogs.map(blog => blog.likes))
   )
-  //console.log(favorite)
+  // turhat kentät pois paluuarvosta
+  delete favorite.url
+  delete favorite._id
+  delete favorite.__v
+  // console.log('lempiblogi on', favorite)
   return favorite
 }
 
@@ -69,33 +108,32 @@ const mostLikes = (blogs) => {
   let likeCounter = 0
   let name
 
-  const authorsAndLikes = blogs.map(blog => {return {author: blog.author, likes: blog.likes}})
+  const authorsAndLikes = blogs.map(blog => { return { author: blog.author, likes: blog.likes } })
   const uniqueAuthors = [...new Set(blogs.map(b => b.author))]
 
-  //authorsAndLikes.forEach(i => {
-    uniqueAuthors.forEach(j => {
-      // console.log(i.author, i.likes)
-      /* if (i.author === j) {
+  // authorsAndLikes.forEach(i => {
+  uniqueAuthors.forEach(j => {
+    // console.log(i.author, i.likes)
+    /* if (i.author === j) {
         likeCounter += i.likes
-        console.log("likecounter", likeCounter);
+        console.log('likecounter', likeCounter);
       }authorsAndLikes.map(e => {return {author: j, likes: j.likes}}) */
-      console.log(authorsAndLikes, j);
-      const mapi = authorsAndLikes.filter(e => e.author === j)
-      
-      console.log(mapi);
-      likeCounter = totalLikes(mapi)
-      //console.log(likeCounter);
-      if (likeCounter >= mostLikesCounter) {
-        mostLikesCounter = likeCounter
-        name = j
-      }
-      likeCounter = 0
-    })
-    
-  //})
+    // console.log(authorsAndLikes, j)
+    const mapi = authorsAndLikes.filter(e => e.author === j)
+
+    // console.log(mapi)
+    likeCounter = totalLikes(mapi)
+    // console.log(likeCounter);
+    if (likeCounter >= mostLikesCounter) {
+      mostLikesCounter = likeCounter
+      name = j
+    }
+    likeCounter = 0
+  })
+
   const mostAuthor = { author: name, likes: mostLikesCounter }
   return mostAuthor
 }
 module.exports = {
-  dummy, totalLikes, favoriteBlog, mostBlogs, mostLikes
+  dummy, totalLikes, favoriteBlog, mostBlogs, mostLikes, blogsInDatabase, initialBlogs
 }
