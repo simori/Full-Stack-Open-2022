@@ -1,9 +1,10 @@
-import { useState } from "react"
+import { useState } from 'react'
 import blogService from '../services/blogs'
+import PropTypes from 'prop-types'
 
-const Blog = ({ blog, currentUser }) => {
+const Blog = ({ setBlogs, blogList, blog, currentUser }) => {
   const [viewAllInfo, setViewAllInfo] = useState(false)
-  
+
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -19,26 +20,41 @@ const Blog = ({ blog, currentUser }) => {
         author: blog.author,
         url: blog.url,
         likes: blog.likes + 1,
-        user: blog.user
-        //id: notes.length + 1,
+        user: blog.user,
+        id: blog.id
       }
+      const updatedBlog = blogList.map(b => {
+        if (b.id === newBlogObj.id) {
+          return { ...b, likes: blog.likes + 1 }
+        }
+        return b
+      })
+
+      setBlogs(updatedBlog.sort(
+        (a, b) => { return b.likes - a.likes }
+      ))
+      delete newBlogObj.id
       await blogService.update(blog.id, newBlogObj)
 
     } catch(exception) {
       console.log('EpäOnnistui blogin liketys! ', exception.message)
     }
-    console.log(blog.title, 'liked!');
+    console.log(blog.title, 'liked!')
   }
 
   const removeBlog = async (blog) => {
     try {
       if (window.confirm(`Do you really want to delete ${blog.title}?`)) {
+        const filtered = blogList.filter(b => b.id !== blog.id)
+        // console.log('filtered on', filtered)
+        setBlogs(filtered)
         await blogService.remove(blog.id)
-      }    
+      }
     } catch(exception) {
       console.log('EpäOnnistui blogin poisto! ', exception.message)
     }
-    console.log(blog.title, 'removed');
+
+    console.log(blog.title, 'removed')
   }
 
   if (viewAllInfo === true && blog.user.name === currentUser) {
@@ -72,6 +88,14 @@ const Blog = ({ blog, currentUser }) => {
       </div>
     </div>
   )
+}
+
+// 5.11
+Blog.propTypes = {
+  setBlogs: PropTypes.func.isRequired,
+  blogList: PropTypes.array.isRequired,
+  blog: PropTypes.object.isRequired,
+  currentUser: PropTypes.string.isRequired
 }
 
 export default Blog

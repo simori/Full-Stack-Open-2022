@@ -9,12 +9,12 @@ const App = () => {
   const [blogs, setBlogs] = useState([])
   const [message, setMessage] = useState(null)
   const [user, setUser] = useState(null)
-  const [username, setUsername] = useState('') 
-  const [password, setPassword] = useState('') 
-  const [errState, setErrState] = useState(false) 
-  const [newBlogTitle, setNewBlogTitle] = useState('') 
-  const [newBlogAuthor, setNewBlogAuthor] = useState('') 
-  const [newBlogUrl, setNewBlogUrl] = useState('') 
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [errState, setErrState] = useState(false)
+  const [newBlogTitle, setNewBlogTitle] = useState('')
+  const [newBlogAuthor, setNewBlogAuthor] = useState('')
+  const [newBlogUrl, setNewBlogUrl] = useState('')
   const [addBlogVisible, setAddBlogVisible] = useState(false)
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const App = () => {
       setBlogs( blogs.sort(
         (a, b) => { return b.likes - a.likes}
       ) )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -40,11 +40,11 @@ const App = () => {
       const user = await loginService.login({
         username, password,
       })
-      
+
       // 5.2
       window.localStorage.setItem(
         'loggedUser', JSON.stringify(user)
-      ) 
+      )
       blogService.setToken(user.token)
       setUser(user)
       setUsername('')
@@ -62,18 +62,18 @@ const App = () => {
   // 5.2
   const logoutHandler = (event) => {
     event.preventDefault()
-    
+
     window.localStorage.clear()
     console.log(user.name, 'Logged out!')
     setUser(null)
     setMessage(user.name + ' Logged Successfully out!')
-      setTimeout(() => {
-        setMessage(null)
-      }, 3000)
+    setTimeout(() => {
+      setMessage(null)
+    }, 3000)
   }
 
   // 5.3
-   const addBlogHandler = async (event) => {
+  const addBlogHandler = async (event) => {
     event.preventDefault()
 
     try {
@@ -85,13 +85,16 @@ const App = () => {
       }
 
       blogService
-      .create(newBlogObj)
+        .create(newBlogObj)
         .then(returnedBlog => {
-        setBlogs(blogs.concat(returnedBlog))
-      })
+          setBlogs(blogs.concat(returnedBlog))
+        })
       setAddBlogVisible(false)
-      console.log(`Successfully added new blog ${newBlogTitle} by ${newBlogAuthor}!`);
+      console.log(`Successfully added new blog ${newBlogTitle} by ${newBlogAuthor}!`)
 
+      setNewBlogAuthor('')
+      setNewBlogTitle('')
+      setNewBlogUrl('')
       setMessage(`Successfully added new blog ${newBlogTitle} by ${newBlogAuthor}!`)
       setTimeout(() => {
         setMessage(null)
@@ -105,7 +108,7 @@ const App = () => {
         setErrState(false)
       }, 3000)
     }
-  } 
+  }
   // 5.5
   const newBlogForm = () => {
     const hideWhenVisible = { display: addBlogVisible ? 'none' : '' }
@@ -140,25 +143,25 @@ const App = () => {
         <h2>Log in to application</h2>
         <Notification message={message} error={errState}/>
         <form onSubmit={loginHandler}>
-        <div>
+          <div>
           username
             <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
+              type="text"
+              value={username}
+              name="Username"
+              onChange={({ target }) => setUsername(target.value)}
+            />
+          </div>
+          <div>
           password
             <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type="submit">login</button>
+              type="password"
+              value={password}
+              name="Password"
+              onChange={({ target }) => setPassword(target.value)}
+            />
+          </div>
+          <button type="submit">login</button>
         </form>
       </div>
     )
@@ -203,7 +206,7 @@ const App = () => {
         <button type="submit">create new blog!</button>
         </form> */}
       {blogs.map(
-        blog => <Blog key={blog.id} blog={blog} currentUser={user.name} />
+        blog => <Blog key={blog.id} setBlogs={setBlogs} blogList={blogs} blog={blog} currentUser={user.name} />
       )
       }
     </div>
