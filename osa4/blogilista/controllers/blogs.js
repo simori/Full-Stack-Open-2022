@@ -28,8 +28,8 @@ blogsRouter.get('/:id', (request, response, next) => {
 
 blogsRouter.post('/', async (request, response, next) => {
   const body = request.body
-  const user = request.user
-  console.log('käyttäjä on request.user -', user)
+  // const user = request.user
+  // console.log('käyttäjä on request.user -', request.user)
   const decodedToken = await jwt.verify(request.token, process.env.SECRET)
   if (!request.token || !decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid!' })
@@ -37,12 +37,13 @@ blogsRouter.post('/', async (request, response, next) => {
   const seekedUser = await User.findById(decodedToken.id)
   // console.log('seekedUser on', seekedUser)
 
+  // const userObj = { id: seekedUser._id, name: seekedUser.name, username: seekedUser.username }
   const blog = new Blog({
     title: body.title,
     author: body.author,
     url: body.url,
     likes: body.likes === undefined ? 0 : body.likes,
-    user: seekedUser._id
+    user: seekedUser
   })
   // jos uusi blogi ei sisällä kenttiä title ja url,
   // pyyntöön vastataan statuskoodilla 400 Bad Request.

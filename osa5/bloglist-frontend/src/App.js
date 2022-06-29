@@ -12,10 +12,12 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errState, setErrState] = useState(false)
-  const [newBlogTitle, setNewBlogTitle] = useState('')
-  const [newBlogAuthor, setNewBlogAuthor] = useState('')
-  const [newBlogUrl, setNewBlogUrl] = useState('')
+  // const [newBlogTitle, setNewBlogTitle] = useState('')
+  // const [newBlogAuthor, setNewBlogAuthor] = useState('')
+  // const [newBlogUrl, setNewBlogUrl] = useState('')
   const [addBlogVisible, setAddBlogVisible] = useState(false)
+
+  //const newBlogRef = useRef()
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -73,32 +75,38 @@ const App = () => {
   }
 
   // 5.3
-  const addBlogHandler = async (event) => {
-    event.preventDefault()
+  const addBlogHandler = (blogObject) => {
+    //event.preventDefault() ^^ (event)
+    /*  setNewBlogTitle('testititteli')
+    setNewBlogAuthor('testiautoori')
+    setNewBlogUrl('testiurlii') */
 
     try {
-      const newBlogObj = {
+      /* const newBlogObj = {
         title: newBlogTitle,
         author: newBlogAuthor,
         url: newBlogUrl
         //id: notes.length + 1,
       }
-
+      console.log(newBlogTitle, newBlogAuthor, newBlogUrl, newBlogObj)
+      */
+      //console.log('blogObject on ', blogObject)
       blogService
-        .create(newBlogObj)
+        .create(blogObject)
         .then(returnedBlog => {
+          console.log('returned Blogi on', returnedBlog)
           setBlogs(blogs.concat(returnedBlog))
         })
       setAddBlogVisible(false)
-      console.log(`Successfully added new blog ${newBlogTitle} by ${newBlogAuthor}!`)
-
-      setNewBlogAuthor('')
-      setNewBlogTitle('')
-      setNewBlogUrl('')
-      setMessage(`Successfully added new blog ${newBlogTitle} by ${newBlogAuthor}!`)
+      console.log(`Successfully added new blog ${blogObject.title} by ${blogObject.author}!`)
+      setMessage(`Successfulley added new blog ${blogObject.title} by ${blogObject.author}!`)
       setTimeout(() => {
         setMessage(null)
       }, 3000)
+      // setNewBlogAuthor('')
+      // setNewBlogTitle('')
+      // setNewBlogUrl('')
+
     } catch (exception) {
       console.log('EpäOnnistui blogin lisäys! ', exception.message)
       setErrState(true)
@@ -117,17 +125,11 @@ const App = () => {
     return (
       <div>
         <div style={hideWhenVisible}>
-          <button onClick={() => setAddBlogVisible(true)}>create</button>
+          <button id="crate-button" onClick={() => setAddBlogVisible(true)}>create</button>
         </div>
         <div style={showWhenVisible}>
           <AddBlogForm
-            handleSubmit={addBlogHandler}
-            setTitle={({ target }) => setNewBlogTitle(target.value)}
-            setAuthor={({ target }) => setNewBlogAuthor(target.value)}
-            setUrl={({ target }) => setNewBlogUrl(target.value)}
-            title={newBlogTitle}
-            author={newBlogAuthor}
-            url={newBlogUrl}
+            createBlog={addBlogHandler}
           />
           <button onClick={() => setAddBlogVisible(false)}>cancel</button>
         </div>
@@ -146,6 +148,7 @@ const App = () => {
           <div>
           username
             <input
+              id="username"
               type="text"
               value={username}
               name="Username"
@@ -155,13 +158,14 @@ const App = () => {
           <div>
           password
             <input
+              id="password"
               type="password"
               value={password}
               name="Password"
               onChange={({ target }) => setPassword(target.value)}
             />
           </div>
-          <button type="submit">login</button>
+          <button id="login-button" type="submit">login</button>
         </form>
       </div>
     )
@@ -170,12 +174,12 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       <Notification message={message} error={errState} />
-      Logged in as {user.name}! <button onClick={logoutHandler}>logout!</button>
+      Logged in as {user.name}! <button id="logout" onClick={logoutHandler}>logout!</button>
       <br/>
       {newBlogForm()}
       <br/>
       {/* <h2>create new blog</h2>
-      <form onSubmit={addBlogHandler}>
+      <form onSubmit={addBlogHandler}> userilla on token, username ja name
         <div>
           title:
             <input

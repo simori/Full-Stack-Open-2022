@@ -57,34 +57,33 @@ const Blog = ({ setBlogs, blogList, blog, currentUser }) => {
     console.log(blog.title, 'removed')
   }
 
+  //wconsole.log('blog user', blog.user, 'blog user name', blog.user.name, 'currentUser', currentUser, blog)
   if (viewAllInfo === true && blog.user.name === currentUser) {
     return (
       <div style={blogStyle}>
-        <div>
+        <div className='blog'>
           {blog.title} {blog.author} <button onClick={() => setViewAllInfo(false)}>hide</button><br/>
           {blog.url}<br/>
-          {blog.likes} likes <button onClick={() => likeBlog(blog)}>like this blog</button><br/>
-          {blog.user.name}<br/>
-          <button onClick={() => removeBlog(blog)}>remove this blog</button>
+          {blog.likes} likes <button id="likeButton" onClick={() => likeBlog(blog)}>like this blog</button><br/>
+          <button id="removeBlog" onClick={() => removeBlog(blog)}>remove this blog</button>
         </div>
       </div>
     )
   } else if (viewAllInfo === true) {
     return (
       <div style={blogStyle}>
-        <div>
+        <div className='blog'>
           {blog.title} {blog.author} <button onClick={() => setViewAllInfo(false)}>hide</button><br/>
-          {blog.url}<br/>
-          {blog.likes} likes <button onClick={() => likeBlog(blog)}>like this blog</button><br/>
-          {blog.user.name}<br/>
+          <div className='.url'>{blog.url}</div><br/>
+          <div className='.likes'>{blog.likes}</div> likes <button id="likeButton" onClick={() => likeBlog(blog)}>like this blog</button><br/>
         </div>
       </div>
     )
   }
   return (
     <div style={blogStyle}>
-      <div>
-        {blog.title} {blog.author} <button onClick={() => setViewAllInfo(true)}>view</button>
+      <div className='blog'>
+        {blog.title} {blog.author} <button id="viewBlog" onClick={() => setViewAllInfo(true)}>view</button>
       </div>
     </div>
   )

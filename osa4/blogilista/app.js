@@ -35,6 +35,11 @@ app.use('/api/login', loginRouter)
 // tehäämpä huvikseen etusivuroutteri
 app.use('/', frontpageRouter)
 
+if (process.env.NODE_ENV === 'test') {
+  const testRouter = require('./controllers/testrouter')
+  app.use('/api/testing', testRouter)
+}
+
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 
