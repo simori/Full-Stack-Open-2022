@@ -10,17 +10,21 @@ const filterSlice = createSlice({
   reducers: {
     filterAnecdotes(state, action) {
       const content = action.payload
-      //console.log('FILTER ANECDOTES  kontentti, tila, aktio', content, state, action);
+      console.log('FILTER ANECDOTES  kontentti', content);
+      console.log('FILTER ANECDOTES  tila', state);
+      console.log('FILTER ANECDOTES  action', action);
       /* state.push({
         content
       })  */
       switch (action.type) {
         case 'filter/filterAnecdotes':
+          console.log('swich vcase filter anedotes', action);
           return {
             //type: 'FILTER',
             content
           }  
         default:
+          //console.log('swich vcase default ', action);
           return state
       }
       

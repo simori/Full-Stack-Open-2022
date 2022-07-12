@@ -1,25 +1,36 @@
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { filterAnecdotes } from "../reducers/filterReducer"
 
-const Filter = () => {
-  const dispatch = useDispatch()
+const Filter = (props) => {
+  // const dispatch = useDispatch()
 
-  // const anecdotes = useSelector(state => state.anecdotes)
-  const handleChange = (event) => {
-    //event.preventDefault()
-    // input-kentän arvo muuttujassa event.target.value
-    const input = event.target.value
-    dispatch(filterAnecdotes(input))
-  }
   const style = {
     marginBottom: 10
   }
 
   return (
     <div style={style}>
-      filter <input onChange={handleChange} />
+      filter <input onChange={(e) => props.filterAnecdotes(e.target.value)} />
     </div>
   )
 }
+const mapStateToProps = (state) => {
+  if (state.filter === '') {
+    console.log('mapstatetoprops filter state.anecdotes:', state);
+    return {anecdotes: state.anecdotes}
+  }
+  console.log('mapstatetoprops filtteröidään: ', state);
+  return {anecdotes: state.anecdotes.filter(
+    a => a.content.toLowerCase().includes(state.filter.content.toLowerCase())
+  )}
 
-export default Filter
+}
+
+const mapDispatchToProps = {
+  filterAnecdotes,
+}
+
+
+const ConnectedFilter = connect(mapStateToProps, mapDispatchToProps)(Filter)
+export default ConnectedFilter

@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { voteAnecdote } from '../reducers/anecdoteReducer'
-import { setNotification, emptyNotification } from '../reducers/notificationReducer'
+import { voteAnecdoteThunk } from '../reducers/anecdoteReducer'
+import { setNotification } from '../reducers/notificationReducer'
 
 const AnecdoteList = () => {
   const dispatch = useDispatch()
@@ -9,20 +9,20 @@ const AnecdoteList = () => {
     console.log('AnedoteListin state.anecdotes:', state.anecdotes);
     console.log('AnedoteListin state.filter:', state.filter);
     console.log('AnedoteListin state.notificationin typeof:', typeof state.notification); */
+    
     if (state.filter === '') {
+      //console.log('App. js state.anecdotes:', state.anecdotes);
       return state.anecdotes
     }
+    console.log('filtteröidään: ', state);
     return state.anecdotes.filter(
       a => a.content.toLowerCase().includes(state.filter.content.toLowerCase())
     )
   })
 
   const handleVote = (anecdote) => {
-    dispatch(voteAnecdote(anecdote.id))
-    dispatch(setNotification(`You voted for "${anecdote.content}"!`))
-    setTimeout(() => {
-      dispatch(emptyNotification())
-    }, 5000)
+    dispatch(voteAnecdoteThunk(anecdote.id, anecdote))
+    dispatch(setNotification(`You voted for "${anecdote.content}"!`, 5))
   }
 
   return (
