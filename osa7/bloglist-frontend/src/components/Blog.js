@@ -57,12 +57,6 @@ export const SingleBlog = ({ bloglist }) => {
   const id = useParams().id
 
   const findBlog = bloglist.find((b) => b.id === id)
-  //console.log('findBlog:', findBlog.comments)
-
-  /* useEffect(() => {
-    setComments(findBlog.comments)
-    console.log('kommentit:', comments)
-  }, []) */
 
   const commentHandler = (event) => {
     setNewComment(event.target.value)

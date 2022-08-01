@@ -43,15 +43,13 @@ export const SingleUser = ({ userlist, blogs }) => {
 const Users = () => {
   const [users, setUsers] = useState([])
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await userServ.getAll()
-        setUsers(res)
-      } catch (err) {
-        console.log(err)
-      }
+    const getUsers = async () => {
+      const users = await userServ.getAll()
+      setUsers(users)
     }
-    fetchData()
+
+    getUsers().catch(console.error)
+
   }, [])
 
   console.log('USERS: ', users)

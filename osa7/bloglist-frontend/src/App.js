@@ -27,15 +27,13 @@ const App = () => {
 
   const [userlist, setUsers] = useState([])
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await userService.getAll()
-        setUsers(res)
-      } catch (err) {
-        console.log(err)
-      }
+    const getUsers = async () => {
+      const users = await userService.getAll()
+      setUsers(users)
     }
-    fetchData()
+
+    getUsers().catch(console.error)
+
   }, [])
 
   const sortedBlogs = [...blogs2].sort((a, b) => {
