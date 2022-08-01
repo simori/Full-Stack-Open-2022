@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs/ 
+Content-Type: application/json
+
+{
+    "title": "request-user",
+    "author": "request-user",
+    "url": "http://mörököl.li",
+    "user": "62ab146ecf5eee199aca690c"
+}

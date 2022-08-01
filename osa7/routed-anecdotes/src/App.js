@@ -11,9 +11,9 @@ const Menu = () => {
   }
   return (
     <div>
-      <a href='/' style={padding}>anecdotes</a>
-      <a href='/create' style={padding}>create new</a>
-      <a href='/about' style={padding}>about</a>
+      <Link style={padding} to="/">anecdotes</Link>
+      <Link style={padding} to="/create">create new</Link>
+      <Link style={padding} to="/about">about</Link>
     </div>
   )
 }
@@ -24,23 +24,19 @@ const Notification = ({ content }) => {
        {content}
     </div>
   )
-
-
 }
 
 const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} ><a href={`/anecdotes/${anecdote.id}`}>{anecdote.content}</a></li>)}
+      {anecdotes.map(anecdote => <li key={anecdote.id} ><Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link></li>)}
     </ul>
   </div>
 )
 
 // tehtävä 7.2
 const Anecdote = ({ anecdote }) => {
-  const { id } = useParams()
-
   return (<div>
     <h2>{anecdote.content} by {anecdote.author}</h2>
     <p>has {anecdote.votes} votes</p>
@@ -72,20 +68,14 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
-  /* const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
- */
-
   // 7.4
   const contents = useField('text')
   const author = useField('text')
   const info = useField('text')
 
-  
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('kontentti',contents, 'resettiCont', contents.reset);
+
     props.addNew({
       content: contents.propsit.value,
       author: author.propsit.value,
@@ -99,14 +89,9 @@ const CreateNew = (props) => {
     console.log('resetti+');
     contents.reset()
     author.reset()
-    info.reset()
-
-    //author.reset()
-    //info.reset()
-    
+    info.reset()  
   }
 
-  // <input name='content' value={content.value} onChange={content.onChange} />
   return (
     <div>
       <h2>create a new anecdote</h2>
@@ -159,19 +144,15 @@ const App = () => {
 
   const navigate = useNavigate()
 
-  const match = useMatch('/anecdotes/:id')
-  const anecdote = match
-    ? anecdotes.find(a => a.id === Number(match.params.id))
-    : null
-
   const addNew = (anecdote) => {
 
     anecdote.id = Math.round(Math.random() * 10000)
+    //anecdotes.push(anecdote)
     setAnecdotes(anecdotes.concat(anecdote))
+    console.log('SetAnecdootin jälkeen: ', anecdotes)
     navigate('/')
     setNotification(`a new anecdote ${anecdote.content} created!`)
     setTimeout(() => setNotification(null), 5000)
-    console.log(anecdotes)
   }
 
   const anecdoteById = (id) =>
@@ -187,6 +168,13 @@ const App = () => {
 
     setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
   }
+
+  const match = useMatch('/anecdotes/:id')
+  console.log('match:', match)
+  const anecdote = match
+    ? anecdotes.find(a => a.id === Number(match.params.id))
+    : null
+  console.log('matchin jälkeen anecdote on', anecdote, 'ja anecdotes', anecdotes)
 
   return (
     <div>
