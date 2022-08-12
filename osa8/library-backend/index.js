@@ -1,3 +1,4 @@
+require('dotenv').config()
 const { ApolloServer } = require('apollo-server-express')
 const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core')
 const { makeExecutableSchema } = require('@graphql-tools/schema')
@@ -17,8 +18,7 @@ const { execute, subscribe } = require('graphql')
 const { SubscriptionServer } = require('subscriptions-transport-ws')
 
 // TÄMÄ POIS ENNEN GITTIIN PUSKUA!!!
-const MONGODB_URI =
-	'mongodb+srv://fullstacksimppa:9pijwcTnlCUPaYvB@cluster0.tisx0.mongodb.net/kirjasto?retryWrites=true&w=majority'
+const MONGODB_URI = process.env.MONGODB_URI
 
 console.log('connecting to', MONGODB_URI)
 
@@ -33,7 +33,7 @@ mongoose
 
 /*
  * Suomi:
- * Saattaisi olla järkevämpää assosioida kirja ja sen tekijä tallettamalla kirjan yhteyteen tekijän nimen sijaan tekijän id
+ * Saattaisi olla järkevämpää assosioida kirja ja sen tekijä tallettamalla  kirjan yhteyteen tekijän nimen sijaan tekijän id
  * Yksinkertaisuuden vuoksi tallennamme kuitenkin kirjan yhteyteen tekijän nimen
  *
  * English:
