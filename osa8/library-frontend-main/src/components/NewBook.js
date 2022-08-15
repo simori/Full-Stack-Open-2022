@@ -26,7 +26,9 @@ const NewBook = (props) => {
       cache.updateQuery({ query: ALL_AUTHORS }, ({ allAuthors }) => {
         console.log('allAuthors:', allAuthors)
         return {
-          allAuthors: allAuthors.concat(response.data.addBook.author)
+          allAuthors: allAuthors.concat(response.data.addBook.author),
+          born: response.data.addBook.author.born,
+          bookCount: response.data.addBook.author.bookCount
         }
       })
       /* cache.updateQuery({ query: GET_GENRES }, ({ allGenres }) => {

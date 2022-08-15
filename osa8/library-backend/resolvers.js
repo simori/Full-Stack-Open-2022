@@ -238,7 +238,7 @@ console.log('ihan uus authori',book)
 			return books.length
 		},
 		name: async (root) => {
-      console.log('8.26 author resolver name')
+      //console.log('8.26 author resolver name')
 			//console.log('author.name resolver root:', root)
 			const author = await Author.findById(root)
 			//console.log('author.name resolver author:', author.name)

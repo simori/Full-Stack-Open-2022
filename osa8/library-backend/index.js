@@ -17,7 +17,6 @@ const resolvers = require('./resolvers')
 const { execute, subscribe } = require('graphql')
 const { SubscriptionServer } = require('subscriptions-transport-ws')
 
-// TÄMÄ POIS ENNEN GITTIIN PUSKUA!!!
 const MONGODB_URI = process.env.MONGODB_URI
 
 console.log('connecting to', MONGODB_URI)

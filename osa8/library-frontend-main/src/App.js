@@ -72,6 +72,7 @@ const App = () => {
         console.log('frontend allBooks GetGenres:', allBooks)
           return {
             allBooks: allBooks.concat(addedBook.genres),
+            genres: addedBook.genres
           }
         }
       )
