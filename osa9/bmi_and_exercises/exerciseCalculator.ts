@@ -32,7 +32,7 @@ const calculateFunc = (trHours: number[], target: number) : Result => {
   // yhteenlaskettu treenituntien lkm
   const allHours = trHours.reduce((acc,hr) => {
     return acc + hr;
-  })
+  });
 
   // treenipäivien lkm
   let trDays = 0;
@@ -40,7 +40,7 @@ const calculateFunc = (trHours: number[], target: number) : Result => {
     if (hr > 0) {
       trDays++;
     }
-  })
+  });
 
   // keskimääräinen treeniaika päivässä
   const aveHours = allHours / trHours.length;
@@ -54,11 +54,11 @@ const calculateFunc = (trHours: number[], target: number) : Result => {
   }
   else if (aveHours < target) { // ihan ei tavoite toteutunut
     rating = 2;
-    ratingDescription = 'Not too bad but could be better!'
+    ratingDescription = 'Not too bad but could be better!';
   }
   else { // tavoite toteutui
     rating = 3;
-    ratingDescription = 'Keep up the good work!'
+    ratingDescription = 'Keep up the good work!';
   }
 
   return {
@@ -69,8 +69,8 @@ const calculateFunc = (trHours: number[], target: number) : Result => {
     success: aveHours > target ? true : false,
     rating,
     ratingDescription
-  }
-}
+  };
+};
 
 interface Arguments {
   target: number,
@@ -85,27 +85,27 @@ const parseArgs = (args: Array<string>): Arguments => {
   if (isNaN(Number(args[2]))) throw new Error('Provided target value was not number!');
 
   // parsitaan treenitunnit talteen argumenteista
-  let hoursArr: number[] = []
+  const hoursArr: number[] = [];
   for (let i = 3; i < args.length; i++) {
     // jos jokin arvo ei olekaan numero, heitetään virhe asiasta
     if (isNaN(Number(args[i]))) {
       throw new Error('Provided hour values were not numbers!');
     }
-    hoursArr.push(Number(args[i]))
+    hoursArr.push(Number(args[i]));
   }
   
   // kaikki onnistui! palautetaan annetut arvot oliona jatkokäsittelyä varten!
   return {
     target: Number(args[2]),
     hours: hoursArr
-  }
-}
+  };
+};
 
 // argumentillinen versio (EKA argumentti on tavoite, loput on treenipäiviä)
-const calculateExercises = (target: number, trHours: number[]) : Result => {
+export const calculateExercises = (target: number, trHours: number[]) : Result => {
   return calculateFunc(trHours, target);
-}
+};
 
-const { target, hours } = parseArgs(process.argv) // tehtävä 9.3
+const { target, hours } = parseArgs(process.argv); // tehtävä 9.3
 console.log(calculateExercises(target, hours));
 

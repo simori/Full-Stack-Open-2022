@@ -12,7 +12,7 @@
   Obese (Class II)	35.0 – 39.9
   Obese (Class III)	≥ 40.0
 */
-const calculateBmi = (height: number, weight: number) : string => {
+export const calculateBmi = (height: number, weight: number) : string => {
   const height_m = height / 100; // pituus metreiksi
   const bmi = weight / (height_m * height_m);
 
@@ -41,11 +41,11 @@ const calculateBmi = (height: number, weight: number) : string => {
     return "Severely obese";
   }
   else {
-    return "Erroneous arguments! Usage: npm run calculateBmi [height in cm] [weight in kg]"
+    return "Erroneous arguments! Usage: npm run calculateBmi [height in cm] [weight in kg]";
   }
-}
+};
 
-const height: number = Number(process.argv[2])
-const weight: number = Number(process.argv[3])
+const height = Number(process.argv[2]);
+const weight = Number(process.argv[3]);
 
-console.log(calculateBmi(height, weight)) // tulostaa: "Normal (healthy weight)"
+console.log(calculateBmi(height, weight)); // tulostaa: "Normal (healthy weight)"
