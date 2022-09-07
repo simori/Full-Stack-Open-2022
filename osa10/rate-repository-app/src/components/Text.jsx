@@ -25,9 +25,12 @@ const styles = StyleSheet.create({
   fontWeightBold: {
     fontWeight: theme.fontWeights.bold,
   },
+  extraPadding: {
+    paddingRight: 20,
+  },
 });
 
-const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
+const Text = ({ color, fontSize, fontWeight, style, padding, ...props }) => {
   const textStyle = [
     styles.text,
     color === 'textSecondary' && styles.colorTextSecondary,
@@ -35,6 +38,7 @@ const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
     color === 'appBarTitle' && styles.appBarTitleWhite,
     fontSize === 'subheading' && styles.fontSizeSubheading,
     fontWeight === 'bold' && styles.fontWeightBold,
+    padding === 'extraPad' && styles.extraPadding,
     style,
   ];
 

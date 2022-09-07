@@ -13,24 +13,25 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
-    flexGrow: 1,
+    flexGrow: 1
   },
   avatarContainer: {
-    flexGrow: 0,
-    paddingRight: 15,
+    paddingRight: 15
   },
   infoContainer: {
-    flexGrow: 1,
-    flexWrap: "wrap"
+    flexShrink: 1,
+    paddingBottom: 20
   },
   languageContainer: {
     padding: 5,
-    backgroundColor: "blue"
+    paddingBottom: 10,
+    backgroundColor: "blue",
+    borderRadius: 4
   },
   footer: {
     flexDirection: 'row',
     flexGrow: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'space-around'
   },
 });
 
