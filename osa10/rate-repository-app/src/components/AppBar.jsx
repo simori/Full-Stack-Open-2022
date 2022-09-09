@@ -1,8 +1,11 @@
-import { View, StyleSheet, Pressable, ScrollView } from 'react-native';
+import { View, StyleSheet, Pressable, ScrollView, Alert } from 'react-native';
 import Text from './Text';
 import Constants from 'expo-constants';
-import { Link, Navigate } from "react-router-native";
-import SignIn from './SignIn';
+import { Link } from "react-router-native";
+import { useQuery } from '@apollo/client';
+import { GET_ME } from '../graphql/queries';
+import { useApolloClient } from '@apollo/client';
+import useAuthStorage from '../hooks/useAuthStorage';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,23 +16,30 @@ const styles = StyleSheet.create({
   // ...
 }});
 
+// sovelluksen yläpalkki
 const AppBar = () => {
+  const loggedIn = useQuery(GET_ME);
+
+  const authStorage = useAuthStorage();
+  const apolloClient = useApolloClient();
+
+  // 10.16
+  const logout = async () => {
+    Alert.alert("Logoutted!");
+    await authStorage.removeAccessToken();
+    apolloClient.resetStore();
+  }
+
   return <View style={styles.container}>{
     <>
-      {/* <Pressable
-        onPress={() => <Navigate to="/" replace />}
-      > */}
-        
-      {/* </Pressable>
-      <Pressable
-        onPress={() => <Navigate to="/signin" replace />}
-      > */}
-        
-      {/* </Pressable> */}
       <ScrollView horizontal>{
         <>
           <Link to="/"><Text fontWeight="bold" fontSize="subheading" color="appBarTitle" padding="extraPad">Repositories</Text></Link>
-          <Link to="/signin"><Text fontWeight="bold" fontSize="subheading" color="appBarTitle" padding="extraPad">Sign In</Text></Link>
+          {loggedIn.data && loggedIn.data.me !== null
+            ? <Pressable onPress={logout}><Text fontWeight="bold" fontSize="subheading" color="appBarTitle" padding="extraPad">Sign Out</Text></Pressable>
+            : <Link to="/signin"><Text fontWeight="bold" fontSize="subheading" color="appBarTitle" padding="extraPad">Sign In</Text></Link>
+          }
+
         </>
       }</ScrollView>
     </>

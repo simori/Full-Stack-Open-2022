@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
   },
 });
 
+// repositorio-kortin yläosa, jossa näytetään omistajan avatar, jonka vieressä oikealla
+// repositorion nimi, kuvaus ja kieli
 const CardHeader = ({item}) => {
   return (
     <View style={styles.container}>
@@ -52,9 +54,12 @@ const CardHeader = ({item}) => {
   );
 };
 
+// lukujen formatointi apufunktio.
 const format = (number) => {
   return number > 999 ? (number/1000).toFixed(1) + 'k' : number
 }
+
+// repo-kortin alaosa, jossa näytetään kaikki pyydetyt luvut
 const CardFooter = ({item}) => {
   return (
     <>
