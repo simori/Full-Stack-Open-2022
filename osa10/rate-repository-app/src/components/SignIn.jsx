@@ -1,6 +1,6 @@
 import FormikTextInput from './FormikTextInput';
 import { Formik } from 'formik';
-import { Button } from 'react-native';
+import { Button, View } from 'react-native';
 import useSignIn from '../hooks/useSignIn';
 import { useNavigate } from "react-router-native";
 
@@ -29,17 +29,19 @@ const SignIn = () => {
   };
 
   return (
-    <Formik 
-      initialValues={{username: "", password: ""}} 
-      onSubmit={onSubmit}
-      validationSchema={valider}
-      >
-      {({ handleSubmit }) => <>
-        <FormikTextInput name="username" placeholder="User"></FormikTextInput>
-        <FormikTextInput name="password" placeholder="Pass" secureTextEntry={true}></FormikTextInput>
-        <Button onPress={handleSubmit} title="Submit" />
-      </>}
-    </Formik>
+    <View style={{padding: 15}}>
+      <Formik 
+        initialValues={{username: "", password: ""}} 
+        onSubmit={onSubmit}
+        validationSchema={valider}
+        >
+        {({ handleSubmit }) => <>
+          <FormikTextInput style={{paddingBottom: 15}} name="username" placeholder="User"></FormikTextInput>
+          <FormikTextInput style={{paddingBottom: 15}} name="password" placeholder="Pass" secureTextEntry={true}></FormikTextInput>
+          <Button onPress={handleSubmit} title="Submit" />
+        </>}
+      </Formik>
+    </View>
   );
 };
 

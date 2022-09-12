@@ -25,7 +25,7 @@ const AppBar = () => {
 
   // 10.16
   const logout = async () => {
-    Alert.alert("Logoutted!");
+    Alert.alert("Logging out!");
     await authStorage.removeAccessToken();
     apolloClient.resetStore();
   }

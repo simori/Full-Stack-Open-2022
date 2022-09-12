@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
-    flexGrow: 1
+    flexGrow: 0
   },
   avatarContainer: {
     paddingRight: 15
@@ -26,12 +26,14 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingBottom: 10,
     backgroundColor: "blue",
-    borderRadius: 4
+    borderRadius: 4,
+    alignSelf: 'flex-start'
   },
   footer: {
     flexDirection: 'row',
     flexGrow: 1,
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    alignItems: 'center'
   },
 });
 
@@ -54,7 +56,7 @@ const CardHeader = ({item}) => {
   );
 };
 
-// lukujen formatointi apufunktio.
+// apufunktio nelinumeroisten lukujen formatointiin (esim 1234 > 1.2k)
 const format = (number) => {
   return number > 999 ? (number/1000).toFixed(1) + 'k' : number
 }
