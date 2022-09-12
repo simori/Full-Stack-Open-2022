@@ -77,7 +77,7 @@ const CardFooter = ({item}) => {
 
 const RepositoryItem = ({ item }) => {
   return (
-    <View style={styles.flexContainer}>
+    <View testID="repositoryItem" style={styles.flexContainer}>
       <CardHeader item={item}/>
       <CardFooter item={item}/>
     </View>
