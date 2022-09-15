@@ -32,12 +32,25 @@ const AppBar = () => {
 
   return <View style={styles.container}>{
     <>
+      {loggedIn.data && loggedIn.data.me !== null
+        ? <Text color="appBarTitle">logged in as {loggedIn.data.me.username}</Text>
+        : <></>
+      }
+      
       <ScrollView horizontal>{
         <>
           <Link to="/"><Text fontWeight="bold" fontSize="subheading" color="appBarTitle" padding="extraPad">Repositories</Text></Link>
           {loggedIn.data && loggedIn.data.me !== null
+            ? <Link to="/review"><Text fontWeight="bold" fontSize="subheading" color="appBarTitle" padding="extraPad">Create Review</Text></Link>
+            : <></>
+          }
+          {loggedIn.data && loggedIn.data.me !== null
             ? <Pressable onPress={logout}><Text fontWeight="bold" fontSize="subheading" color="appBarTitle" padding="extraPad">Sign Out</Text></Pressable>
             : <Link to="/signin"><Text fontWeight="bold" fontSize="subheading" color="appBarTitle" padding="extraPad">Sign In</Text></Link>
+          }
+          {loggedIn.data && loggedIn.data.me === null
+            ? <Link to="/signup"><Text fontWeight="bold" fontSize="subheading" color="appBarTitle" padding="extraPad">Sign Up</Text></Link>
+            : <></>
           }
 
         </>

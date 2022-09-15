@@ -1,4 +1,4 @@
-// 10.18
+// 10.18 kirjautumislomakkeen testaus
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { SignInContainer } from '../../components/SignIn';
 // ...

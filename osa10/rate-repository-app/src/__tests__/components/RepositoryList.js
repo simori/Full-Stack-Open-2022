@@ -3,6 +3,7 @@ import { render } from '@testing-library/react-native';
 /* import { ApolloProvider } from '@apollo/client';
 import createApolloClient from '../../utils/apolloClient'; */
 
+// tehtävä 10-17 repolistan testaus, jotta lista näyttäisi oikeat tiedot
 describe('RepositoryList', () => {
   describe('RepositoryListContainer', () => {
     it('renders repository information correctly', () => {
