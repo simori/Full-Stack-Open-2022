@@ -3,6 +3,7 @@ import { useParams } from 'react-router-native';
 import { useQuery } from '@apollo/client';
 import { GET_BY_ID, GET_REVIEWS } from '../graphql/queries';
 import RepositoryItem from './RepositoryItem';
+//import ReviewItem from './ReviewItem';
 import { Button, FlatList, StyleSheet, View } from 'react-native';
 import * as Linking from 'expo-linking'; 
 import Text from './Text';
@@ -18,6 +19,35 @@ const styles = StyleSheet.create({
       ios: 'blue',
       default: 'black',
     }),
+  },
+  flexContainer: {
+    display: 'flex',
+    padding: 20
+  },
+  container: {
+    flexDirection: 'row',
+    flexGrow: 0,
+    padding: 20,
+    backgroundColor: '#eaeaea'
+  },
+  gradeContainer: {
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    paddingTop: 12,
+    borderColor: 'blue',
+    borderRadius: 25,
+    borderWidth: 3,
+    borderStyle: 'solid',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'blue',
+    fontSize: 20
+  },
+  infoContainer: {
+    flexShrink: 1,
+    paddingBottom: 10,
+    paddingLeft: 10
   },
 });
 
@@ -35,23 +65,10 @@ const RepositoryInfo = ({ repository }) => {
   )
 };
 
-const ReviewItem = ({ review }) => {
-  // Single review item
-  //console.log('REVIEW ITEM:', review);
-  return (
-    <>
-      <Text>Rating: {review.node.rating}</Text>
-      <Text>By {review.node.user.username}</Text>
-      <Text>Date: {format(new Date(review.node.createdAt), 'dd.MM.yyyy')}</Text>
-      <Text>{review.node.text}</Text>
-    </>
-  );
-};
-
 const useReviews = (variables) => {
   console.log('variables:', variables);
   const { data, loading, fetchMore, ...result } = useQuery(GET_REVIEWS, {
-    fetchPolicy: 'cache-and-network',
+    //fetchPolicy: 'cache-and-network',
     // Other options
     variables,
     onError: (err) => {
@@ -83,10 +100,27 @@ const useReviews = (variables) => {
   };
 };
 
+const ReviewItem = ({ item }) => {
+  // Single review item
+  console.log('REVIEW ITEM:', item);
+  return (
+    <View style={styles.container}>
+      <View>
+        <Text style={styles.gradeContainer}>{item.node.rating}</Text>
+      </View>
+      <View style={styles.infoContainer}>
+        <Text fontWeight="bold" fontSize="subheading">{item.node.user.username}</Text>
+        <Text color="textSecondary">{format(new Date(item.node.createdAt), 'dd.MM.yyyy')}</Text>
+        <Text>{"\n"}{item.node.text}</Text>
+      </View>
+    </View>
+  );
+};
+
 const RepositoryView = () => {
   const { id } = useParams();
   const repoById = useQuery(GET_BY_ID, {
-    fetchPolicy: 'cache-and-network',
+    //fetchPolicy: 'cache-and-network',
     variables: { repositoryId: id },
     onError: (err) => {
       console.log('EpäOnnistui!', err);
@@ -138,7 +172,7 @@ const RepositoryView = () => {
     return (
       <FlatList
         data={reviews.edges}
-        renderItem={({ item }) => <ReviewItem review={item} />}
+        renderItem={({ item }) => <ReviewItem item={item} />}
         keyExtractor={({ id }) => id}
         ListHeaderComponent={<RepositoryInfo repository={repo} />}
         ItemSeparatorComponent={ItemSeparator}

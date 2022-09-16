@@ -39,22 +39,50 @@ const AppBar = () => {
       
       <ScrollView horizontal>{
         <>
-          <Link to="/"><Text fontWeight="bold" fontSize="subheading" color="appBarTitle" padding="extraPad">Repositories</Text></Link>
+          <Link to="/">
+            <Text fontWeight="bold" fontSize="subheading" color="appBarTitle" 
+                  padding="extraPad">Repositories
+            </Text>
+          </Link>
           {loggedIn.data && loggedIn.data.me !== null
-            ? <Link to="/review"><Text fontWeight="bold" fontSize="subheading" color="appBarTitle" padding="extraPad">Create Review</Text></Link>
+            ? <>
+                <Link to="/review">
+                  <Text fontWeight="bold" fontSize="subheading" 
+                        color="appBarTitle" padding="extraPad">Create Review
+                  </Text>
+                </Link>
+                <Link to="/myreviews">
+                  <Text fontWeight="bold" fontSize="subheading" 
+                        color="appBarTitle" padding="extraPad">My Reviews
+                  </Text>
+                </Link>
+                </>
             : <></>
           }
           {loggedIn.data && loggedIn.data.me !== null
-            ? <Pressable onPress={logout}><Text fontWeight="bold" fontSize="subheading" color="appBarTitle" padding="extraPad">Sign Out</Text></Pressable>
-            : <Link to="/signin"><Text fontWeight="bold" fontSize="subheading" color="appBarTitle" padding="extraPad">Sign In</Text></Link>
+            ? <Pressable onPress={logout}>
+                <Text fontWeight="bold" fontSize="subheading" 
+                      color="appBarTitle" padding="extraPad">Sign Out
+                </Text>
+              </Pressable>
+            : <Link to="/signin">
+                <Text fontWeight="bold" fontSize="subheading" 
+                      color="appBarTitle" padding="extraPad">Sign In
+                </Text>
+              </Link>
           }
           {loggedIn.data && loggedIn.data.me === null
-            ? <Link to="/signup"><Text fontWeight="bold" fontSize="subheading" color="appBarTitle" padding="extraPad">Sign Up</Text></Link>
+            ? <Link to="/signup">
+                <Text fontWeight="bold" fontSize="subheading" 
+                      color="appBarTitle" padding="extraPad">Sign Up
+                </Text>
+              </Link>
             : <></>
           }
 
         </>
-      }</ScrollView>
+      }
+      </ScrollView>
     </>
   }</View>;
 };

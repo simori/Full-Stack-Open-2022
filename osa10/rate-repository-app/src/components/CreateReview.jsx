@@ -68,39 +68,8 @@ export const CreateReviewContainer = () => {
   );
 }
 const CreateReview = () => {
-
-  let navigate = useNavigate();
   const { id } = useParams();
   console.log('createreview id', id);
-  /* const [ createReview ] = useMutation(CREATE_REVIEW); */
-  /* let navigate = useNavigate();
-
-  const onSubmit = async (values) => {
-    const { username, password } = values;
-
-    try {
-      const { data } = await signIn({ username, password });
-      navigate("/", { replace: true });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  return (
-    <View style={{padding: 15}}>
-      <Formik 
-        initialValues={{username: "", password: ""}} 
-        onSubmit={onSubmit}
-        validationSchema={valider}
-        >
-        {({ handleSubmit }) => <>
-          <FormikTextInput style={{paddingBottom: 15}} name="username" placeholder="User"></FormikTextInput>
-          <FormikTextInput style={{paddingBottom: 15}} name="password" placeholder="Pass" secureTextEntry={true}></FormikTextInput>
-          <Button onPress={handleSubmit} title="Submit" />
-        </>}
-      </Formik>
-    </View>
-  ); */
   return <CreateReviewContainer />;
 };
 

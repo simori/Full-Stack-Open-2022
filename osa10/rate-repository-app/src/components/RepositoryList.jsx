@@ -66,7 +66,6 @@ export class RepositoryListContainer extends React.Component {
     // this.props contains the component's props
     // searchQuery={searchQuery} setSearch={setSearchQuery} onChangeSearch={onChangeSearch}
     const props = this.props;
-    console.log('luokkakomponentti testi propsit haku:',props.searchQuery);
     // ...
     //const [searchQuery, setSearchQuery] = useState('');
     //const [debouncedQuery] = useDebounce(props.searchQuery, 666);

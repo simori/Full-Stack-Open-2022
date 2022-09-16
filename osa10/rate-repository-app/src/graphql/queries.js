@@ -8,10 +8,33 @@ import { gql } from '@apollo/client';
         endCursor
       } */
 export const GET_ME = gql`
-  query {
+  query ($includeReviews: Boolean = false) {
     me {
       id
       username
+      reviews @include(if: $includeReviews) {
+        edges {
+          node {
+            id
+            rating
+            user {
+              username
+            }
+            repository {
+              fullName
+              url
+            }
+            text
+            createdAt
+            }
+            cursor
+          }
+        pageInfo {
+          hasNextPage
+          startCursor
+          endCursor
+        }
+      }
     }
   }
 `
