@@ -23,6 +23,8 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 const MyReviews = () => {
   const { data, loading } = useQuery(GET_ME, {
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-first',
     variables: {
       includeReviews: true
     }

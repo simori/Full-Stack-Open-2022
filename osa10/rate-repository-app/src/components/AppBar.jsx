@@ -24,6 +24,7 @@ const AppBar = () => {
   const apolloClient = useApolloClient();
 
   // 10.16
+  // bugi: antaa virheilmoituksen jos logouttia painettaessa on My Reviews sivulla
   const logout = async () => {
     Alert.alert("Logging out!");
     await authStorage.removeAccessToken();
@@ -33,7 +34,7 @@ const AppBar = () => {
   return <View style={styles.container}>{
     <>
       {loggedIn.data && loggedIn.data.me !== null
-        ? <Text color="appBarTitle">logged in as {loggedIn.data.me.username}</Text>
+        ? <Text color="appBarTitle">logged in as{"\n"} {loggedIn.data.me.username}</Text>
         : <></>
       }
       

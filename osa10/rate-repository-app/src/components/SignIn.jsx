@@ -47,34 +47,7 @@ export const SignInContainer = ({signIn, navi}) => {
 const SignIn = () => {
   const [signIn] = useSignIn();
   let navigate = useNavigate();
-  /* let navigate = useNavigate();
 
-  const onSubmit = async (values) => {
-    const { username, password } = values;
-
-    try {
-      const { data } = await signIn({ username, password });
-      navigate("/", { replace: true });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  return (
-    <View style={{padding: 15}}>
-      <Formik 
-        initialValues={{username: "", password: ""}} 
-        onSubmit={onSubmit}
-        validationSchema={valider}
-        >
-        {({ handleSubmit }) => <>
-          <FormikTextInput style={{paddingBottom: 15}} name="username" placeholder="User"></FormikTextInput>
-          <FormikTextInput style={{paddingBottom: 15}} name="password" placeholder="Pass" secureTextEntry={true}></FormikTextInput>
-          <Button onPress={handleSubmit} title="Submit" />
-        </>}
-      </Formik>
-    </View>
-  ); */
   return <SignInContainer signIn={signIn} navi={navigate} />;
 };
 

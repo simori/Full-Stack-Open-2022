@@ -42,7 +42,7 @@ const SortMenu = ({ setSort }) => {
         style={{
           paddingBottom: 200,
           flexDirection: 'row',
-          justifyContent: 'center',
+          justifyContent: 'left'
         }}>
         <Menu
           visible={visible}
@@ -61,16 +61,10 @@ const SortMenu = ({ setSort }) => {
 // korjataan RepositoryListContainer luokkakomponentiksi niin 
 // saadaan hakupalkki toimimaan kunnolla ...kai?z
 export class RepositoryListContainer extends React.Component {
-  
   renderHeader = () => {
     // this.props contains the component's props
     // searchQuery={searchQuery} setSearch={setSearchQuery} onChangeSearch={onChangeSearch}
     const props = this.props;
-    // ...
-    //const [searchQuery, setSearchQuery] = useState('');
-    //const [debouncedQuery] = useDebounce(props.searchQuery, 666);
-    //const onChangeSearch = query => props.setSearch(query);
-
     return (
       <>
         <Searchbar
@@ -114,43 +108,6 @@ export class RepositoryListContainer extends React.Component {
   }
 }
 
-export const RepositoryListContainere = ({ repositories, setSort }) => {
-  // Get the nodes from the edges array
-  const repositoryNodes = repositories
-    ? repositories.edges.map((edge) => edge.node)
-    : [];
-
-    //console.log(repositoryNodes);
-  return (
-    <FlatList
-      data={repositoryNodes}
-      // Other props
-      ItemSeparatorComponent={ItemSeparator}
-      ListHeaderComponent={
-        <SortMenu setSort={setSort}/>
-      }
-      renderItem={({item}) => (
-        <Pressable onPress={() => {
-          console.log(item.id);
-            props.navigate(`/repository/${item.id}`);
-          }}>
-          <RepositoryItem item={item} />
-        </Pressable>
-      )}
-    />
-  );
-};
-
-/* 
-* 
-* orderBy: AllRepositoriesOrderBy
-* Values: CREATED_AT RATING_AVERAGE
-orderDirection: OrderDirection
-Values ASC DESC
-
-default: CREATED_AT, DESC
-*/
-
 const RepositoryList = () => {
   /* 
   Latest: {orderBy: "CREATED_AT", orderDirection: "DESC"}
@@ -176,11 +133,6 @@ const RepositoryList = () => {
 
   return (
     <>
-{/*       <Searchbar
-        placeholder="Filter adlfadlödflö"
-        onChangeText={onChangeSearch}
-        value={debouncedQuery}
-      /> */}
       <RepositoryListContainer repositories={repositories} setSort={setSort}
         searchQuery={searchQuery} debouncedQuery={debouncedQuery} setSearch={setSearchQuery} 
         onChange={onChangeSearch} navigate={navigate} onEndReach={onEndReach} />

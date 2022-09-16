@@ -68,7 +68,7 @@ const RepositoryInfo = ({ repository }) => {
 const useReviews = (variables) => {
   console.log('variables:', variables);
   const { data, loading, fetchMore, ...result } = useQuery(GET_REVIEWS, {
-    //fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
     // Other options
     variables,
     onError: (err) => {

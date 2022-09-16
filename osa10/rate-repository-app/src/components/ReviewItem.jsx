@@ -55,9 +55,6 @@ const deleteAlert = (id, deleter) =>
                 }
               }
             );
-            if (loading) return null;
-            if (error) return 'VituiksMän'
-            console.log('poistofunktio: ', loading, error, data, refetch);
             return refetch;
           }
           catch (e) {
@@ -86,14 +83,17 @@ const CardHeader = ({item, deleteReview}) => {
           <Text>{"\n"}{item.text}</Text>
         </View>
       </View>
-      <Button onPress={() => Linking.openURL(item.repository.url)} title="View repository" />
-      <Button 
-        color='#dd0000' 
-        onPress={
-          () => {
-            deleteAlert(item.id, deleteReview);
-          }
-        } title="Delete review" />
+      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <Button onPress={() => Linking.openURL(item.repository.url)} title="View repository" />
+        <Button 
+          color='#dd0000' 
+          onPress={
+            () => {
+              deleteAlert(item.id, deleteReview);
+            }
+          } title="Delete review" 
+        />
+      </View>
     </>
   );
 };

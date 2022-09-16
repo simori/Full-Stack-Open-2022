@@ -3,8 +3,6 @@ import { GET_REPOSITORIES } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
 
 const useRepositories = (variables) => {
-  const [repositories, setRepositories] = useState();
-
   const { data, loading, fetchMore, ...result } = useQuery(GET_REPOSITORIES, {
     fetchPolicy: 'cache-and-network',
     // Other options
