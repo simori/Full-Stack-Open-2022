@@ -1,0 +1,8 @@
+name: Hello World!
+
+jobs:
+  hello_job:
+    steps:
+      - name: Say hello world
+        run: |
+          echo "Hello World!"
