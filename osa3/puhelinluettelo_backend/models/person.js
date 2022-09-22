@@ -1,8 +1,8 @@
 //TEHTÄVÄ 3.13
 const mongoose = require('mongoose')
 
-const url = process.env.MONGODB_URI
-
+//const url = process.env.MONGODB_URI
+const url = `mongodb+srv://fullstacksimppa:${process.env.MONGODB_PASS}@cluster0.tisx0.mongodb.net/puhelinluettelo?retryWrites=true&w=majority`
 console.log('connecting to', url)
 
 mongoose.connect(url)
