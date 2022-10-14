@@ -1,0 +1,27 @@
+PS C:\fullstack22\osa13> cd esimerkki
+PS C:\fullstack22\osa13\esimerkki> heroku create
+https://gentle-beyond-46403.herokuapp.com/ | https://git.heroku.com/gentle-beyond-46403.git
+PS C:\fullstack22\osa13\esimerkki> ls
+PS C:\fullstack22\osa13\esimerkki> heroku addons:create heroku-postgresql:hobby-dev -a obscure-harbor-48504
+Creating heroku-postgresql:hobby-dev on ⬢ obscure-harbor-48504... free
+Database has been created and is available
+ ! This database is empty. If upgrading, you can transfer
+ ! data from another database with pg:copy
+Created postgresql-fitted-41766 as DATABASE_URL
+Use heroku addons:docs heroku-postgresql to view documentation
+PS C:\fullstack22\osa13\esimerkki> heroku config -a gentle-beyond-46403
+=== obscure-harbor-48504 Config Vars
+DATABASE_URL: postgres://ycmecoolfliwuu:7945e0f327eefa760d7ca5a12da137496156df5260f487f120aa6016b058cfd8@ec2-54-86-106-48.compute-1.amazonaws.com:5432/d3802e0qs482e2
+PS C:\fullstack22\osa13\esimerkki>
+
+app name: gentle-beyond-46403
+username: ycmecoolfliwuu
+password: 7945e0f327eefa760d7ca5a12da137496156df5260f487f120aa6016b058cfd8
+host-of-postgres-addon: ec2-54-86-106-48.compute-1.amazonaws.com:5432
+db-name: d3802e0qs482e2
+
+heroku run psql -h ec2-54-86-106-48.compute-1.amazonaws.com -p 5432 -U ycmecoolfliwuu d3802e0qs482e2 -a gentle-beyond-46403
+
+sriihima token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNyaWloaW1hIiwiaWQiOjEsImlhdCI6MTY2NTE0NTg4Nn0.onUjxC_hWYQv9ikrBVf6JPDu0HQi-eURaZ57WjouOUM
+
+testi1 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RpMSIsImlkIjo1LCJpYXQiOjE2NjUxNDY2ODF9.StQmiyQXNXz1oSzrbqKd8SUhO3giFcdVUUBAlup69MY
