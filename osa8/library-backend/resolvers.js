@@ -11,7 +11,6 @@ const pubsub = new PubSub()
 const resolvers = {
 	Mutation: {
 		addBook: async (root, args, { currentUser }) => {
-      console.log(args)
 			if (!currentUser) {
 				throw new AuthenticationError('not authenticated!')
 			}
@@ -62,15 +61,12 @@ const resolvers = {
 			}
 
 			const findAuthor = await Author.findOne({ name: args.author })
-			//console.log('löytyikö authori jo: ',findAuthor)
-			// jos kirjoittajaa ei ole ennestään tiedoissa:
 			if (!findAuthor) {
-				//console.log('Ei löytynyt sennimistä authoria, lisätään tietoihin:!')
 				try {
 					await newAuthor.save()
 					const book = new Book({ ...args, author: newAuthor })
 					await book.save()
-console.log('ihan uus authori',book)
+
           // 8.24
           // julkaistaan tilanneille tieto lisäyksestä
           pubsub.publish('BOOK_ADDED', { bookAdded: book })
@@ -100,13 +96,11 @@ console.log('ihan uus authori',book)
 		},
 		editAuthor: async (root, args, { currentUser }) => {
 			// 8.16
-			//const currentUser = context.currentUser
 			
 			if (!currentUser) {
 				throw new AuthenticationError('not authenticated!')
 			}
 			// jos authoria ei löydy, palauta null
-			//console.log('editAuthor root,', root, 'args', args)
 			try {
 				const author = await Author.findOneAndUpdate(
 					{ name: args.name },
@@ -119,10 +113,6 @@ console.log('ihan uus authori',book)
 					invalidArgs: args
 				})
 			}
-
-			/*       const updatedAuthor = { ...author, born: args.setBornTo }
-      await updatedAuthor.save() */
-			return author
 		},
 		createUser: (root, args) => {
 			const user = new User({
@@ -178,12 +168,9 @@ console.log('ihan uus authori',book)
 		authorCount: () => Author.collection.countDocuments(),
 		// tehtävä 8.2 & 8.4
 		allBooks: async (root, args) => {
-			//const authors = await Author.find({})
-			//console.log('authorss', authors)
 			if (args.author && args.genre) {
 				// jos nimi ja genre molemmat annettu, filtteröidään
 				const auth = await Author.find({ name: args.author })
-				//const booksByGen = await Book.find({genres: args.genre})
 				const booksByAuth = await Book.find({ author: auth })
 
 				const filtered = booksByAuth.filter((b) =>
@@ -195,26 +182,17 @@ console.log('ihan uus authori',book)
 			// ei filtteröintiä
 			else if (!args.genre && !args.author) {
 				const books = await Book.find({})
-				//const list = await Book.find({})
 				return books
 			}
 			// nimeä ei annettu mutta genre on annettu
 			else if (!args.author) {
-				console.log(
-					'nimeä ei annettu mutta genre on annettu. root on',
-					root,
-					'ja args.genre on',
-					args.genre
-				)
+
 				const books = await Book.find({ genres: args.genre })
 				//console.log(books)
 				return books
 			} else if (!args.genre) {
-				//console.log('nimi annettu mutta genre ei!', args)
 				const findAuth = await Author.find({ name: args.author })
-				//console.log('nimi annettu mutta genre ei findAuth!', findAuth)
 				const books = await Book.find({ author: findAuth })
-				//console.log('books on', books)
 				return books
 			}
 		},
@@ -231,17 +209,11 @@ console.log('ihan uus authori',book)
 	Author: {
     
 		bookCount: async (root) => {
-      //console.log('8.26 author resolver bookCount')
-			//console.log('bookCount resolveri root', root)
 			const books = await Book.find({ author: root._id })
-			//console.log('bookCount resolveri filtered lenght', books)
 			return books.length
 		},
 		name: async (root) => {
-      //console.log('8.26 author resolver name')
-			//console.log('author.name resolver root:', root)
 			const author = await Author.findById(root)
-			//console.log('author.name resolver author:', author.name)
 			return author.name
 		}
 	}

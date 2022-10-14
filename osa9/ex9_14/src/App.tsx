@@ -4,11 +4,6 @@ interface CoursePartsProps { // uusi tyyppi määrittämään kurssin osaset
   parts: CoursePart[];
 }
 
-/* interface CoursePart { // määritetään kurssin osasten tyypit tällä interfacella
-  name: string;
-  exerciseCount: number;
-}  */
-
 // new types tehtävä 9.15
 interface CoursePartBase {
   name: string;
@@ -102,11 +97,6 @@ const Content = ({ parts }: CoursePartsProps) => {
           <p key={p.name}>
             <b>{p.name}</b> - {p.exerciseCount} exercises<br/>
             <Part part= {p} />
-            {/* <b>{p.name} {p.exerciseCount}</b><br/>
-            <em>{p.description}</em><br/>
-            submit to {p.exerciseSubmissionLink}<br/>
-            required skills: {p.requirements} */}
-
           </p>
       )}
     </>
@@ -170,16 +160,6 @@ const App = () => {
 // Header rendaa kurssin nimen
 // Content eri kurssin osien nimet ja harkkojen lkm:t
 // Total renderöi kaikkien osien kaikkien harkkojen summan
-/* 
-Half Stack application development
-Fundamentals 10
-
-Using props to pass data 7
-
-Deeper type usage 14
-
-Number of exercises 31
-*/
   return (
     <div>
       <Header name={courseName} />      

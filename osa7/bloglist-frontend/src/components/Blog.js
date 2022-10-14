@@ -16,14 +16,13 @@ const like = (blog, dispatch) => {
       likes: blog.likes + 1,
       user: blog.user.id
     }
-    console.log('likeBlog newBlogObj on', newBlogObj)
 
     dispatch(likeBlog(newBlogObj))
     dispatch(
       createNotification(`You liked ${blog.title} by ${blog.author}!`, false)
     )
   } catch (exception) {
-    console.log('EpäOnnistui blogin liketys! ', exception.message)
+
     dispatch(createNotification('Blog liking failed!', true))
     console.log(exception)
   }
@@ -32,22 +31,16 @@ const like = (blog, dispatch) => {
 const removeBlog = (blog, dispatch) => {
   try {
     if (window.confirm(`Do you really want to delete ${blog.title}?`)) {
-      //const filtered = blogList.filter((b) => b.id !== blog.id)
-      // console.log('filtered on', filtered)
-      //setBlogs(filtered)
-      //await blogService.remove(blog.id)
-      //dispatch(createNotification(`Successfully deleted ${blog.title} by ${blog.author}!`, false))
+
       dispatch(deleteBlog(blog))
       dispatch(
         createNotification(`Deleted ${blog.title} by ${blog.author}!`, false)
       )
     }
   } catch (exception) {
-    console.log('EpäOnnistui blogin poisto! ', exception.message)
     dispatch(createNotification('Blog deleting failed!', true))
   }
 
-  console.log(blog.title, 'removed')
 }
 
 // 7.16
@@ -127,7 +120,6 @@ export const SingleBlog = ({ bloglist }) => {
 
 const Blog = ({ blog, currentUser }) => {
   const [viewAllInfo, setViewAllInfo] = useState(false)
-  //const [currentUserName, setCurrentUserName] = useState(currentUser.name)
 
   const blogStyle = {
     paddingTop: 10,
@@ -137,7 +129,6 @@ const Blog = ({ blog, currentUser }) => {
     marginBottom: 5
   }
 
-  //console.log('blog user', blog.user, 'blog user name', blog.user.name, 'currentUser', currentUser, blog)
   if (viewAllInfo === true) {
     if (blog.user.name === currentUser.name) {
       return (

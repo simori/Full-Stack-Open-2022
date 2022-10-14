@@ -5,7 +5,6 @@ const dummy = (blogs) => {
   return 1
 }
 
-// id: '62a6f908f5758a40f6d67c5a'
 const initialBlogs = [
   {
     title: 'Babbyn eka blogi ikinä!',
@@ -57,7 +56,6 @@ tehtävä 4.5
   suosikkia, palauttaa niistä yhden.
 */
 const favoriteBlog = (blogs) => {
-  // console.log(Math.max(...blogs.map(blog => blog.likes)))
   const favorite = blogs.find(
     blog => blog.likes === Math.max(...blogs.map(blog => blog.likes))
   )
@@ -65,7 +63,6 @@ const favoriteBlog = (blogs) => {
   delete favorite.url
   delete favorite._id
   delete favorite.__v
-  // console.log('lempiblogi on', favorite)
   return favorite
 }
 
@@ -111,19 +108,11 @@ const mostLikes = (blogs) => {
   const authorsAndLikes = blogs.map(blog => { return { author: blog.author, likes: blog.likes } })
   const uniqueAuthors = [...new Set(blogs.map(b => b.author))]
 
-  // authorsAndLikes.forEach(i => {
   uniqueAuthors.forEach(j => {
-    // console.log(i.author, i.likes)
-    /* if (i.author === j) {
-        likeCounter += i.likes
-        console.log('likecounter', likeCounter);
-      }authorsAndLikes.map(e => {return {author: j, likes: j.likes}}) */
-    // console.log(authorsAndLikes, j)
     const mapi = authorsAndLikes.filter(e => e.author === j)
 
-    // console.log(mapi)
     likeCounter = totalLikes(mapi)
-    // console.log(likeCounter);
+
     if (likeCounter >= mostLikesCounter) {
       mostLikesCounter = likeCounter
       name = j

@@ -1,13 +1,11 @@
 import { FlatList, View, StyleSheet, Platform, Pressable } from 'react-native';
 import RepositoryItem from './RepositoryItem';
-import RepositoryView from './RepositoryView';
 import useRepositories from '../hooks/useRepositories.js';
 import { useNavigate } from "react-router-native";
-import Text from './Text';
 import { Button, Menu, Divider, Provider, Searchbar } from 'react-native-paper';
 import { useState } from 'react';
 import { useDebounce } from "use-debounce";
-import React, { memo } from 'react';
+import React from 'react';
 
 const styles = StyleSheet.create({
   separator: {
@@ -25,11 +23,6 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 // 10.23 repositorioiden lajitteluvalikko
-  /* 
-  Latest: {orderBy: "CREATED_AT", orderDirection: "DESC"}
-  Highest rated: {orderBy: "RATING_AVERAGE", orderDirection: "DESC"}
-  Lowst rated: {orderBy: "RATING_AVERAGE", orderDirection: "ASC"}
-*/
 const SortMenu = ({ setSort }) => {
   const [visible, setVisible] = useState(false);
   
@@ -63,7 +56,6 @@ const SortMenu = ({ setSort }) => {
 export class RepositoryListContainer extends React.Component {
   renderHeader = () => {
     // this.props contains the component's props
-    // searchQuery={searchQuery} setSearch={setSearchQuery} onChangeSearch={onChangeSearch}
     const props = this.props;
     return (
       <>
@@ -109,11 +101,7 @@ export class RepositoryListContainer extends React.Component {
 }
 
 const RepositoryList = () => {
-  /* 
-  Latest: {orderBy: "CREATED_AT", orderDirection: "DESC"}
-  Highest rated: {orderBy: "RATING_AVERAGE", orderDirection: "DESC"}
-  Lowst rated: {orderBy: "RATING_AVERAGE", orderDirection: "ASC"}
-*/
+
   const navigate = useNavigate();
   const [sort, setSort] = useState(["CREATED_AT", "DESC"])
   const [searchQuery, setSearchQuery] = useState('');

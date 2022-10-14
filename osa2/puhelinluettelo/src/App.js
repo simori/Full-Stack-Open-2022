@@ -183,14 +183,3 @@ const App = () => {
 }
 
 export default App
-
-/* {entriesToShow.map(e =>
-  <Entry
-    key={e.id}
-    entry={e}
-    deleteFunc={() => deleteEntry(e.id)}
-  />
-)} 
-
-deleteFunc = {() => deleteEntry(persons.map(p => p.id))}
-*/

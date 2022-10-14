@@ -66,8 +66,6 @@ const App = () => {
       setPassword('')
       dispatch(createNotification(`${username} Logged Successfully in!`, false))
     } catch (exception) {
-      console.log('wrong credentials exexeption ennen dispatchia')
-      console.log(exception)
       dispatch(
         createNotification(
           'Login failed because wrong credentials entered!',

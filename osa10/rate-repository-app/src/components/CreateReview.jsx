@@ -37,12 +37,11 @@ export const CreateReviewContainer = () => {
               text: values.reviewtext
             },
             onError: (e) => {
-              console.log('VituixMän: ', e);
+              console.log('Error!: ', e);
             }
           }
         }
       )
-      console.log('luotu arvostelu on', review, 'ja id', review.data.createReview.repositoryId);
       navigate(`/repository/${review.data.createReview.repositoryId}`, { replace: true });
     } catch (e) {
       console.log('EpäOnnistui: ', e);

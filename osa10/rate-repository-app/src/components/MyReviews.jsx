@@ -31,8 +31,6 @@ const MyReviews = () => {
   });
   
   if (!loading)  {
-    //const reviews = reviews.edges;
-    //console.log('REPOSITORIO ON', repo, '\n\nJA REVIEWS ON', reviews);
     return (
       <FlatList
         data={data.me.reviews.edges}

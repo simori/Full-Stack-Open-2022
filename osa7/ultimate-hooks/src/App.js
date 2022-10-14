@@ -18,25 +18,20 @@ const useField = (type) => {
 const useResource = (baseUrl) => {
   const [resources, setResources] = useState([])
 
-  // ...
-  //setResources(axios.get(baseUrl).then(res => res.data))
   useEffect(() => {
     axios.get(baseUrl)
       .then(r => {
-        //console.log(r.data);
         setResources(r.data)
       })
 
   }, [])
 
   const create = (resource) => {
-    // ...
     console.log('RESOURCE', resource);
     axios.post(baseUrl, resource).then(r => {
       console.log(r.data);
       setResources(resources.concat(r.data))
     })
-    //setResources(resources.concat(response.data))
   }
 
   const service = {
@@ -56,11 +51,6 @@ const App = () => {
 
   const [notes, noteService] = useResource('http://localhost:3005/notes')
   const [persons, personService] = useResource('http://localhost:3005/persons')
-
-  /* useEffect(() => {
-    noteService.getAll()
-    personService.getAll()
-  }, [noteService, personService]) */
 
   const handleNoteSubmit = (event) => {
     event.preventDefault()

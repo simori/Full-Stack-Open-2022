@@ -14,9 +14,7 @@ router.get('/', (_req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  console.log("haetaan potilaat id perusteella");
   const id = req.params.id;
-  console.log("id on", id);
   
   res.send(patientService.getPatientById(id));
 });
@@ -37,39 +35,10 @@ router.post('/', (req, res) => {
   }
 });
 
-/* // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const isValidEntry = (str: any): str is Entry => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  return ['Hospital', 'OccupationalHealthcare', 'HealthCheck'].includes(str);
-}; */
-
-/* const isEntry = (entry: unknown): entry is Entry => {
-  return typeof entry === 'object' || isValidEntry(entry);
-}; */
-
 // 923
 router.post('/:id/entries', (req, res) => {
   console.log("entryn postaus", req.body);
-  try {
-    /* if (isEntry(req.body)) { 
-      let entree;  
-      switch (req.body.type) {
-        case "Hospital":
-          entree = parseNewHospitalEntry(req.body);
-          break;
-        case "OccupationalHealthcare":
-          entree = parseNewOHCEntry(req.body);
-          break;
-        case "HealthCheck":
-          entree = parseNewHealthCheckEntry(req.body);
-          break;
-        }
-
-      const patient = patientService.getPatientById(req.params.id);
-      const addedEntry = patientService.addEntry(entree, patient);
-      res.json(addedEntry);
-    } */
-    
+  try {    
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const entree: Entry = parseNewEntry(req.body);
     const patient = patientService.getPatientById(req.params.id);

@@ -66,7 +66,6 @@ const RepositoryInfo = ({ repository }) => {
 };
 
 const useReviews = (variables) => {
-  console.log('variables:', variables);
   const { data, loading, fetchMore, ...result } = useQuery(GET_REVIEWS, {
     fetchPolicy: 'cache-and-network',
     // Other options
@@ -102,7 +101,6 @@ const useReviews = (variables) => {
 
 const ReviewItem = ({ item }) => {
   // Single review item
-  console.log('REVIEW ITEM:', item);
   return (
     <View style={styles.container}>
       <View>
@@ -127,48 +125,18 @@ const RepositoryView = () => {
     }
   });
 
-  /* const { data, loading, fetchMore, ...result} = useQuery(GET_REVIEWS, {
-    fetchPolicy: 'cache-and-network',
-    variables: { 
-      repositoryId: id,
-      first: 4 
-    },
-    onError: (err) => {
-      console.log('EpäOnnistui!', err);
-    }
-  }); */
-
   const {reviews, loading, fetchMore } = useReviews({
     repositoryId: id,
     first: 4,
   });
 
   const onEndReach = () => {
-    /* const canFetchMore = !loading && data?.repository.reviews.pageInfo.hasNextPage;
-
-    if (!canFetchMore) {
-      console.log('cannot fetch any more!');
-      return;
-    }
-    console.log('reached end, fetching more!');
-    fetchMore(
-      {
-        variables: {
-          after: data.repository.reviews.pageInfo.endCursor,
-          first: result.first
-        }
-      }
-    ); */
     fetchMore();
   }
 
-  //console.log(id, repoById);
-  //console.log('REVIEWsr: ', reviews.edges);
-
   if (!loading)  {
     const repo = repoById.data.repository;
-    //const reviews = reviews.edges;
-    //console.log('REPOSITORIO ON', repo, '\n\nJA REVIEWS ON', reviews);
+
     return (
       <FlatList
         data={reviews.edges}

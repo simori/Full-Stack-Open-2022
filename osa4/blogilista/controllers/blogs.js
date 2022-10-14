@@ -28,16 +28,13 @@ blogsRouter.get('/:id', (request, response, next) => {
 
 blogsRouter.post('/', async (request, response, next) => {
   const body = request.body
-  // const user = request.user
-  // console.log('käyttäjä on request.user -', request.user)
+
   const decodedToken = await jwt.verify(request.token, process.env.SECRET)
   if (!request.token || !decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid!' })
   }
   const seekedUser = await User.findById(decodedToken.id)
-  // console.log('seekedUser on', seekedUser)
 
-  // const userObj = { id: seekedUser._id, name: seekedUser.name, username: seekedUser.username }
   const blog = new Blog({
     title: body.title,
     author: body.author,
@@ -59,9 +56,7 @@ blogsRouter.post('/', async (request, response, next) => {
 
 blogsRouter.delete('/:id', async (request, response, next) => {
   const accessToken = await jwt.verify(request.token, process.env.SECRET)
-  console.log('accestoken:', accessToken)
-  const user = request.user
-  console.log('request user---', user)
+
   if (!request.token) {
     return response.status(401).json({ error: 'token missing!' })
   } else if (!accessToken.id) {
@@ -70,17 +65,11 @@ blogsRouter.delete('/:id', async (request, response, next) => {
 
   console.log('await findbyid...', request.params.id)
   const blog = await Blog.findById(request.params.id)
-  // console.log('blog.user', blog.user, 'accesstoken.id', accessToken.id)
   if (blog.user.toString() === accessToken.id.toString()) {
     console.log('kaikki okei, deletään blogi!', request.params.id)
     await Blog.findByIdAndRemove(request.params.id)
     response.status(204).end()
   } else return response.status(401).json({ error: 'delete failed because invalid token!' })
-  /* wanha ilman async awaittia
-  .then(() => {
-    response.status(204).end()
-  })
-  .catch(error => next(error)) */
 })
 
 blogsRouter.put('/:id', async (request, response, next) => {

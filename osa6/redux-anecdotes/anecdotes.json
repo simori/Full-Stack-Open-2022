@@ -78,7 +78,7 @@
     {
       "content": "eeeeeeeeeeeeeeeeeeeeeeeeeee",
       "id": "99822",
-      "votes": 0
+      "votes": 1
     },
     {
       "content": "asffsaf",
@@ -88,7 +88,7 @@
     {
       "content": "asdasdads",
       "id": "52730",
-      "votes": 0
+      "votes": 1
     },
     {
       "content": "Any fool can write code",
@@ -118,6 +118,11 @@
     {
       "content": "adfadfaadf",
       "id": "49485",
+      "votes": 0
+    },
+    {
+      "content": "asasdasdsadsaadssad",
+      "id": "50832",
       "votes": 0
     }
   ]

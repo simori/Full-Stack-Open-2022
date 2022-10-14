@@ -5,10 +5,6 @@ import { setNotification } from '../reducers/notificationReducer'
 const AnecdoteList = () => {
   const dispatch = useDispatch()
   const anecdotes = useSelector(state => {
-    /* console.log('AnedoteListin state:', state);
-    console.log('AnedoteListin state.anecdotes:', state.anecdotes);
-    console.log('AnedoteListin state.filter:', state.filter);
-    console.log('AnedoteListin state.notificationin typeof:', typeof state.notification); */
     
     if (state.filter === '') {
       //console.log('App. js state.anecdotes:', state.anecdotes);

@@ -17,10 +17,9 @@ const Filter = (props) => {
 }
 const mapStateToProps = (state) => {
   if (state.filter === '') {
-    console.log('mapstatetoprops filter state.anecdotes:', state);
     return {anecdotes: state.anecdotes}
   }
-  console.log('mapstatetoprops filtteröidään: ', state);
+
   return {anecdotes: state.anecdotes.filter(
     a => a.content.toLowerCase().includes(state.filter.content.toLowerCase())
   )}
@@ -30,7 +29,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   filterAnecdotes,
 }
-
 
 const ConnectedFilter = connect(mapStateToProps, mapDispatchToProps)(Filter)
 export default ConnectedFilter

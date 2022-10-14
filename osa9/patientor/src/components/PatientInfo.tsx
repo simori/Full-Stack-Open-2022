@@ -14,11 +14,6 @@ import AddEntryForm, { EntryFormValues } from './AddEntryForm';
 import AddHealthCheck from './AddHealthCheck';
 import AddHospitalEntry from './AddHospitalEntry';
 
-/* interface Props {
-  onSubmit: (id: string, values: EntryFormValues) => void;
-  onCancel: () => void;
-} */
-
 const GenderIcon = ({ gender }: {gender: Gender}): JSX.Element => {
 	if (gender === Gender.Male) return <Male />;
 	else if (gender === Gender.Female) return <Female />;
@@ -172,47 +167,16 @@ const PatientInfo = () => {
 	const { id } = useParams<{ id: string }>();
 	const [{patients, diagnoses, entries}, dispatch] = useStateValue();
 	const [currentPatient, setCurrentPatient] = useState<Patient>();
-  //const [entries, setEntries] = useState<Array<Entry>>();
 
 	React.useEffect(() => {
     console.log('PATIENTINFO USEEFFECT STATE', patients, diagnoses, entries);
 		const fetchPatientById = async () => {
 			try {
-/* 				if (
-					patients.length === 0 ||
-					patients.filter((p: { id: string | undefined }) => p.id === id)
-						.length === 0
-				) { */
 					const { data: patientById } = await axios.get<Patient>(
 						`${apiBaseUrl}/patients/${id || 'default'}`
 					);
-
-					console.log('potilas ID:n perusteella on', patientById);
-					/* const { data: allDiagnoses } = await axios.get<Diagnosis[]>(
-            `${apiBaseUrl}/diagnoses/`
-          );
-          console.log('diagnoosit hookissa:',allDiagnoses); */
-
 					setCurrentPatient(patientById);
-          console.log('currentPatient::', currentPatient);
-          console.log('patientById::', patientById);
-					//setPatient(patientById);
-          //const entries = currentPatient.entries;
           dispatch(updatePatient(patientById.entries));
-          console.log('entryt useEffectissä:', patientById.entries);
-					//setDiagnoses(allDiagnoses);
-
-					//console.log('currentPatient on nyt', currentPatient);
-					//console.log('diagnoses state:', diagnoses);
-
-					//dispatch({ type: "UPDATE_PATIENT", payload: patientById });
-/* 				} else {
-					console.log('alsdklasdklsa');
-					const patient = patients.find(
-						(p: { id: string | undefined }) => p.id === id
-					);
-					setCurrentPatient(patient);
-				} */
 			} catch (e) {
 				console.error(e);
 			}
@@ -221,21 +185,6 @@ const PatientInfo = () => {
 	}, [dispatch]);
 
 	if (!currentPatient) return null;
-	//const entries = currentPatient.entries;
-	/* console.log('entryt:', entries)
-	console.log('tilan diagnoosit:', diagnoses)
-	const patientsDiagnoses = currentPatient.entries.map((e) => e.diagnosisCodes);
-	console.log('potilaan diagnoosikoodit:', patientsDiagnoses)
-	console.log('potilaan diagnoosikoodit ...:', ...patientsDiagnoses) */
-	/* const testDiag = Object.values(diagnoses).find(d => d.code === patientsDiagnoses[0][0]);
-  console.log('testDiag on',testDiag);
-  console.log('testi diagnoses keys', Object.keys(diagnoses));
-  console.log('testi diagnoses values', Object.values(diagnoses));
-  console.log('testi diagnoses entries', Object.entries(diagnoses)); */
-  console.log('entryt ennen returnia useEffectin jälkeen:', entries);
-/*   const entryArr = [...entries];
-  console.log('yritetään muuttaa taulukoks ',entryArr); */
-  
 
 	return (
 		<div className="patientInfo">
@@ -265,14 +214,11 @@ const PatientInfo = () => {
 							values
 						);
 						dispatch(addEntry(newEntry));
-						//dispatch({ type: "ADD_PATIENT", payload: newPatient }); // >> dispatch(addPatient(newPatient));
 					} catch (e: unknown) {
 						if (axios.isAxiosError(e)) {
 							console.error(e?.response?.data || 'Unrecognized axios error');
-							//setError(String(e?.response?.data?.error) || "Unrecognized axios error");
 						} else {
 							console.error('Unknown error', e);
-							//setError("Unknown error");
 						}
 					}
 				}}
@@ -285,14 +231,11 @@ const PatientInfo = () => {
 							values
 						);
 						dispatch(addEntry(newEntry));
-						//dispatch({ type: "ADD_PATIENT", payload: newPatient }); // >> dispatch(addPatient(newPatient));
 					} catch (e: unknown) {
 						if (axios.isAxiosError(e)) {
 							console.error(e?.response?.data || 'Unrecognized axios error');
-							//setError(String(e?.response?.data?.error) || "Unrecognized axios error");
 						} else {
 							console.error('Unknown error', e);
-							//setError("Unknown error");
 						}
 					}
 				}}
@@ -312,14 +255,11 @@ const PatientInfo = () => {
 							values
 						);
 						dispatch(addEntry(newEntry));
-						//dispatch({ type: "ADD_PATIENT", payload: newPatient }); // >> dispatch(addPatient(newPatient));
 					} catch (e: unknown) {
 						if (axios.isAxiosError(e)) {
 							console.error(e?.response?.data || 'Unrecognized axios error');
-							//setError(String(e?.response?.data?.error) || "Unrecognized axios error");
 						} else {
 							console.error('Unknown error', e);
-							//setError("Unknown error");
 						}
 					}
 				}}

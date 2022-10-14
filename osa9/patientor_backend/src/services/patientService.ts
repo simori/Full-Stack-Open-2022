@@ -28,8 +28,6 @@ const addPatient = ( patient: NewPatient ): Patient => {
 
 // 9.23
 const addEntry = ( entry: Entry, patient: NonSensitivePatient ): Entry => {
-  console.log('patienrService AddEntry', 'entry on ',entry, 'ja patient on',patient);
-  
   const newEntry = {
     ...entry
   };

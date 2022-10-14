@@ -7,7 +7,6 @@ const notificationSlice = createSlice({
   initialState: null,
   reducers: {
     setNotification2(state, action) {
-      console.log('6.18 setnotification2!', state, action);
       switch (action.type) {
         case 'notification/setNotification2':
           return action.payload
@@ -16,7 +15,6 @@ const notificationSlice = createSlice({
       }
     },
     emptyNotification(state, action) {
-      console.log('emptynotifiation!', state, action);
       return null
     }
   }
@@ -25,7 +23,6 @@ const notificationSlice = createSlice({
 
 // 6.18 setNotification action creator, jossa välitetään viesti ja timeout sekunneissa
 export const setNotification = (message, timeout) => {
-  console.log('6.18 setnotification! export const', message, timeout);
   if (timeoutRef) {
     clearTimeout(timeoutRef)
   }

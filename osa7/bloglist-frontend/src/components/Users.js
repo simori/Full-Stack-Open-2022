@@ -20,7 +20,6 @@ export const SingleUser = ({ userlist, blogs }) => {
   const id = useParams().id
 
   const findUser = userlist.find((u) => u.id === id)
-  console.log('SINGLEUSER id', findUser)
   if (!findUser) {
     return <div>No such user id exists! Failed!</div>
   }
@@ -78,9 +77,3 @@ const Users = () => {
 }
 
 export default Users
-
-/*
-{userList.map((user) => (
-  <User key={user.id} name={user.name} blogCount={user.blogs.length} />
-))}
-*/

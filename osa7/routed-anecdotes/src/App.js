@@ -149,7 +149,6 @@ const App = () => {
     anecdote.id = Math.round(Math.random() * 10000)
     //anecdotes.push(anecdote)
     setAnecdotes(anecdotes.concat(anecdote))
-    console.log('SetAnecdootin jälkeen: ', anecdotes)
     navigate('/')
     setNotification(`a new anecdote ${anecdote.content} created!`)
     setTimeout(() => setNotification(null), 5000)
@@ -170,11 +169,9 @@ const App = () => {
   }
 
   const match = useMatch('/anecdotes/:id')
-  console.log('match:', match)
   const anecdote = match
     ? anecdotes.find(a => a.id === Number(match.params.id))
     : null
-  console.log('matchin jälkeen anecdote on', anecdote, 'ja anecdotes', anecdotes)
 
   return (
     <div>

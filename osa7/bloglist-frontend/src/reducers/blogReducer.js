@@ -10,7 +10,6 @@ const blogSlice = createSlice({
     setBlog(state, action) {
       // blogin päivitys (liketys)
       const blog = action.payload
-      console.log('setblog reducer', blog)
       return state.map((b) => (b.id === blog.id ? blog : b))
     },
     initBlogs(state, action) {
@@ -34,13 +33,11 @@ export const { setBlog, initBlogs, appendBlog, removeBlog } = blogSlice.actions
 export const initializeBlogs = () => {
   return async (dispatch) => {
     const bloglist = await blogs.getAll()
-    //console.log('initializeblogs actioncreater: bloglist ', bloglist)
     dispatch(initBlogs(bloglist))
   }
 }
 
 export const addBlog = (newBlog) => {
-  console.log('UUSI BLOGI ON', newBlog)
   return async (dispatch) => {
     const blog = await blogs.create(newBlog)
     dispatch(appendBlog(blog))
@@ -49,10 +46,8 @@ export const addBlog = (newBlog) => {
 
 // 7.12 tykkääminen
 export const likeBlog = (blog) => {
-  console.log('likeBlog actio0ncreator', blog)
   return async (dispatch) => {
     const liked = await blogs.update(blog.id, blog)
-    console.log('likeBlog actio0ncreator liketetty', liked)
     dispatch(setBlog(liked))
   }
 }

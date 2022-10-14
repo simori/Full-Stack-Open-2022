@@ -38,8 +38,6 @@ const tokenExtractor = (request, response, next) => {
   console.log('authorizaato:', authorization)
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
     request.token = authorization.substring(7)
-    // console.log('okei! laitetaan eteenpäin!', request.token)
-    // return request.token
   }
   next()
 }
@@ -49,11 +47,9 @@ const userExtractor = (request, response, next) => {
   // ottaa tokenin authorization hederistä
   const gottenUser = request.body.user
   console.log('userextractor middleware user:', gottenUser)
-  // console.log('requesti:', request)
   if (gottenUser) {
     request.user = gottenUser
     console.log('okei! laitetaan eteenpäin!', request.user)
-    // return request.token
   }
   next()
 }

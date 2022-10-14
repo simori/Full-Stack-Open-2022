@@ -3,11 +3,6 @@ import { v1 as uuid } from 'uuid';
 
 type Fields = { name: unknown, ssn: unknown, dateOfBirth: unknown, 
                 occupation: unknown, gender: Gender };
-/* type EntryFields = { description: string, date: string, specialist: string, 
-                    type: string, employerName: string, 
-                    discharge: { dischDate: string, criteria: string}, 
-                    healthCheckRating: HealthCheckRating, sickLeave: {startDate: string, endDate: string},
-                  diagnosisCodes?: Array<string>}; */
 
 type HospitalEntryFields = { discharge: { dischDate: string, criteria: string} };
 type OccupationalHCFields = { employerName: string, sickLeave: {startDate?: string, endDate?: string} };
@@ -191,19 +186,6 @@ export const parseNewEntry = (data: { description: unknown; date: unknown; speci
     return newEntry;
   }
   throw new Error('Incorrect type of entry!');
-  /* const newEntry: NewEntry = {
-    description,
-    date,
-    
-    type: 'OccupationalHealthcare',
-    specialist,
-    employerName: 'HyPD',
-    diagnosisCodes: ['Z57.1', 'Z74.3', 'M51.2'],
-    sickLeave: {
-      startDate: '2019-08-05',
-      endDate: '2019-08-28',
-    },
-  } */
 };
 
 export default parseNewPatient;

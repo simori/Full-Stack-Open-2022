@@ -39,13 +39,6 @@ export interface OccupationalHealthcareEntryType extends BaseEntry {
   }
 }
 
-/* type HospitalEntry = {
-  type: "Hospital",
-  discharge: {
-    date: string,
-    criteria: string
-  }
-} & BaseEntry; */
 export interface HospitalEntryType extends BaseEntry {
   type: "Hospital",
   discharge: {

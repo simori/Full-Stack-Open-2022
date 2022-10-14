@@ -99,8 +99,6 @@ const CardHeader = ({item, deleteReview}) => {
 };
 
 const ReviewItem = ({ review }) => {
-  // Single review item
-  //console.log('REVIEW ITEM:', review);
   const [ deleteReview ] = useMutation(DELETE_REVIEW,
     {
       refetchQueries: [

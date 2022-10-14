@@ -13,8 +13,6 @@ import { Typography } from "@material-ui/core";
 
 const App = () => {
   const [, dispatch] = useStateValue();
-  //const [visitedPatients, setVisitedPatients] = useState<Array<Patient>>([]);
-  //const [diagnoses, setDiagnoses] = useState<Array<Diagnosis>>([]);
 
   React.useEffect(() => {
     void axios.get<void>(`${apiBaseUrl}/ping`);
@@ -23,11 +21,8 @@ const App = () => {
       try {
         const { data: patientListFromApi } = await axios.get<Patient[]>(
           `${apiBaseUrl}/patients`
-        );
-        console.log('potilaat apista',patientListFromApi);
-        
+        );   
         dispatch(setPatientList(patientListFromApi));
-        //dispatch({ type: "SET_PATIENT_LIST", payload: patientListFromApi });
       } catch (e) {
         console.error(e);
       }
@@ -37,10 +32,7 @@ const App = () => {
         const { data: diagnoseListFromApi } = await axios.get<Diagnosis[]>(
           `${apiBaseUrl}/diagnoses`
         );
-        console.log('diagnoosit apista:',diagnoseListFromApi);
-        
         dispatch(setDiagnoses(diagnoseListFromApi));
-        //dispatch({ type: "SET_PATIENT_LIST", payload: patientListFromApi });
       } catch (e) {
         console.error(e);
       }

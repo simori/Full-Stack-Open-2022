@@ -73,9 +73,7 @@ export const updatePatient = (content: Entry[]) => {
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case "SET_PATIENT_LIST":
-      console.log('SET_PATIENT_LIST state', state, 'action', action);
-      
+    case "SET_PATIENT_LIST":     
       return {
         ...state,
         patients: {
@@ -87,7 +85,6 @@ export const reducer = (state: State, action: Action): State => {
         }
       };
     case "ADD_PATIENT":
-      console.log('ADD_PATIENT_ state', state, 'action', action);
       return {
         ...state,
         patients: {
@@ -96,7 +93,6 @@ export const reducer = (state: State, action: Action): State => {
         }
       };
     case "SET_DIAGNOSES":
-      console.log('SET_DIAGNIOSES state', state, 'action', action);
       return {
         ...state,
         diagnoses: {
@@ -104,9 +100,6 @@ export const reducer = (state: State, action: Action): State => {
         }
       };  
     case "ADD_ENTRY":
-      console.log('ADD_ENTRY state',state);
-      console.log('ADD_ENTRY action',action);
-        //const patient = state.patients.find((p: { id: string; }) => p.id === action.payload.id);
       return {
         ...state,
         entries: {
@@ -115,9 +108,6 @@ export const reducer = (state: State, action: Action): State => {
         }
       };  
     case "UPDATE_PATIENT":
-      console.log('UPDATE_PATIENTY state',state);
-      console.log('UPDATE_PATIENTY action',action);
-      //const patient = state.patients.find((p: { id: string; }) => p.id === action.payload.id);
       return {
         ...state,
         entries: {
